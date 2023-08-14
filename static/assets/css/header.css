@@ -1,0 +1,87 @@
+/*Personalización menú usuario*/
+.profile-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.profile-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-menu ul li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.profile-menu ul li:last-child {
+    border-bottom: none;
+}
+
+.profile-menu ul li a {
+    text-decoration: none;
+    color: #151414;
+    display: block;
+}
+
+#profile-menu ul li a:hover {
+    background-color: #f5f5f5;
+    color: #4c29ac;
+}
+/*Personalización menú carrito*/
+.cart-icon {
+    cursor: pointer;
+}
+
+.cart-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 150px;
+}
+
+.cart-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cart-menu ul li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-menu ul li:last-child {
+    border-bottom: none;
+}
+
+.cart-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+#cart-menu ul li a:hover {
+    background-color: #f5f5f5;
+    color:#000000;
+}
+@media (max-width: 1000px){
+    .cart-menu{
+        top: 60px;
+    }
+    .profile-menu{
+        top: 60px;
+    }
+}
