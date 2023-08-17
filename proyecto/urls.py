@@ -28,5 +28,6 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
     path('shop/', views.shop, name='shop'),
+    path('admin/', views.admin, name='admin'),
 ]
 urlpatterns += staticfiles_urlpatterns()

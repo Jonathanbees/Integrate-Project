@@ -1,4 +1,10 @@
 from django.shortcuts import render
+from django.shortcuts import HttpResponse
+from django.urls import reverse
+from django.shortcuts import redirect
+
+def admin(request):
+    return redirect(reverse('admin:index'))
 
 # Create your views here.
 def index(request):
