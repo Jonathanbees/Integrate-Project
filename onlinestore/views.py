@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from django.urls import reverse
 from django.shortcuts import redirect
+from .models import *
 
 def admin(request):
     return redirect(reverse('admin:index'))
@@ -15,4 +16,7 @@ def contact(request):
 def about(request):
     return render(request,'onlinestore/about.html')
 def shop(request):
-    return render(request,'onlinestore/shop.html')
+    searchTerm = request.GET.get('search')
+    products = Product.objects.all()
+    categories = Category.objects.all()
+    return render(request,'onlinestore/shop.html', {'searchTerm': searchTerm, 'products': products, 'categories':categories})

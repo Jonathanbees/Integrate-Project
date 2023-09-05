@@ -1,165 +1,172 @@
 from django.db import models
-
-class Categoria(models.Model):
-    idcategoria = models.IntegerField(primary_key=True)
-    nombre = models.CharField(max_length=45, blank=True, null=True)
+class BankTransfer(models.Model):
+    idbank_transfer = models.IntegerField(primary_key=True)
+    origin_bank = models.CharField(max_length=45, blank=True, null=True)
+    destination_bank = models.CharField(max_length=45, blank=True, null=True)
+    acount_number = models.CharField(max_length=45, blank=True, null=True)
+    destination_account_number = models.CharField(max_length=45, blank=True, null=True)
+    amount = models.IntegerField(blank=True, null=True)
+    order_idorder = models.ForeignKey('Order', models.DO_NOTHING, db_column='order_idorder')
 
     class Meta:
         managed = False
-        db_table = 'categoria'
+        db_table = 'bank_transfer'
+
+
+class Buyer(models.Model):
+    idbuyer = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=45, blank=True, null=True)
+    username = models.CharField(max_length=45, blank=True, null=True)
+    password = models.CharField(max_length=60, blank=True, null=True)
+    preferences = models.JSONField(blank=True, null=True)
+    email = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'buyer'
+
+
+class Card(models.Model):
+    idcreditcard = models.IntegerField(primary_key=True)
+    card_number = models.CharField(max_length=45, blank=True, null=True)
+    name = models.CharField(max_length=45, blank=True, null=True)
+    expiration_date = models.CharField(max_length=45, blank=True, null=True)
+    cvv = models.IntegerField(blank=True, null=True)
+    card_type = models.CharField(max_length=45, blank=True, null=True)
+    order_idorder = models.ForeignKey('Order', models.DO_NOTHING, db_column='order_idorder')
+
+    class Meta:
+        managed = False
+        db_table = 'card'
+
+
+class Cart(models.Model):
+    iddetails = models.IntegerField(primary_key=True)
+    product_idproduct = models.ForeignKey('Product', models.DO_NOTHING, db_column='product_idproduct')
+    buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
+    product_units = models.IntegerField(blank=True, null=True)
+    subtotal = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'cart'
+
+
+class Category(models.Model):
+    idcategory = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'category'
+
     def __str__(self):
-        return self.nombre
+        return self.name
 
 
-class Comprador(models.Model):
-    idcomprador = models.IntegerField(primary_key=True)
-    nombre = models.CharField(max_length=45, blank=True, null=True)
-    usuario = models.CharField(max_length=45, blank=True, null=True)
-    clave = models.CharField(max_length=60, blank=True, null=True)
-    preferencias = models.CharField(max_length=100, blank=True, null=True)
-    correo = models.CharField(max_length=45, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'comprador'
-    
-
-
-class Compras(models.Model):
-    idcompras = models.IntegerField(primary_key=True)
-    fecha = models.DateTimeField(blank=True, null=True)
-    total = models.CharField(max_length=45, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'compras'
-
-
-class Detallecarrito(models.Model):
-    iddetalle = models.IntegerField(primary_key=True)
-    producto_idproducto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_idproducto')
-    comprador_idcomprador = models.ForeignKey(Comprador, models.DO_NOTHING, db_column='comprador_idcomprador')
-    precioproducto = models.IntegerField(blank=True, null=True)
-    subtotal = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'detallecarrito'
-
-
-class Empresa(models.Model):
-    idempresa = models.IntegerField(primary_key=True)
+class Company(models.Model):
+    idcompany = models.IntegerField(primary_key=True)
     rut = models.CharField(max_length=20, blank=True, null=True)
-    nombre = models.CharField(max_length=45, blank=True, null=True)
-    telefono = models.CharField(max_length=45, blank=True, null=True)
-    direccion = models.CharField(max_length=45, blank=True, null=True)
-    mensaje = models.CharField(max_length=80, blank=True, null=True)
+    name = models.CharField(max_length=45, blank=True, null=True)
+    phone_number = models.CharField(max_length=45, blank=True, null=True)
+    address = models.CharField(max_length=45, blank=True, null=True)
+    message = models.CharField(max_length=80, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'empresa'
+        db_table = 'company'
 
 
-class Listadeseo(models.Model):
-    producto_idproducto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_idproducto')
-    comprador_idcompradores = models.ForeignKey(Comprador, models.DO_NOTHING, db_column='comprador_idcompradores')
-    idlista = models.IntegerField(primary_key=True)
-
-    class Meta:
-        managed = False
-        db_table = 'listadeseo'
-
-
-class Orden(models.Model):
-    idorden = models.IntegerField(primary_key=True)
-    comprador_idcomprador = models.ForeignKey(Comprador, models.DO_NOTHING, db_column='comprador_idcomprador')
-    estado = models.CharField(max_length=45, blank=True, null=True)
+class Order(models.Model):
+    idorder = models.IntegerField(primary_key=True)
+    buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
+    status = models.CharField(max_length=45, blank=True, null=True)
     subtotal = models.IntegerField(blank=True, null=True)
-    cantidadproductos = models.IntegerField(blank=True, null=True)
-    metodo = models.CharField(max_length=45, blank=True, null=True)
-    compras_idcompras = models.ForeignKey(Compras, models.DO_NOTHING, db_column='compras_idcompras')
-    fechatransaccion = models.DateTimeField(blank=True, null=True)
+    products_amount = models.IntegerField(blank=True, null=True)
+    method = models.CharField(max_length=45, blank=True, null=True)
+    purchases_idpurchases = models.ForeignKey('Purchases', models.DO_NOTHING, db_column='purchases_idpurchases')
+    transaction_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'orden'
-
+        db_table = 'order'
+    def __str__(self):
+        return self.idorder
 
 class Paypal(models.Model):
     idpaypal = models.IntegerField(primary_key=True)
-    fecha = models.CharField(max_length=45, blank=True, null=True)
-    correo = models.CharField(max_length=45, blank=True, null=True)
-    detalles = models.CharField(max_length=45, blank=True, null=True)
-    orden_idorden = models.ForeignKey(Orden, models.DO_NOTHING, db_column='orden_idorden')
+    date = models.CharField(max_length=45, blank=True, null=True)
+    email = models.CharField(max_length=45, blank=True, null=True)
+    details = models.CharField(max_length=45, blank=True, null=True)
+    order_idorder = models.ForeignKey(Order, models.DO_NOTHING, db_column='order_idorder')
 
     class Meta:
         managed = False
         db_table = 'paypal'
 
 
-class Producto(models.Model):
-    idproducto = models.IntegerField(primary_key=True)
-    nombre = models.CharField(max_length=45, blank=True, null=True)
-    codigo = models.CharField(max_length=45, blank=True, null=True)
-    descripcion = models.CharField(max_length=45, blank=True, null=True)
-    precio = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    preciocompra = models.IntegerField(blank=True, null=True)
-    cantidad = models.IntegerField(blank=True, null=True)
-    foto = models.ImageField(upload_to='productos/', blank=True, null=True)
-    etiquetas = models.CharField(max_length=60, blank=True, null=True)
-    fechavencimiento = models.CharField(max_length=45, blank=True, null=True)
-    categoria_idcategoria = models.ForeignKey(Categoria, models.DO_NOTHING, db_column='categoria_idcategoria')
+class Product(models.Model):
+    idproduct = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=45, blank=True, null=True)
+    code = models.CharField(max_length=45, blank=True, null=True)
+    description = models.CharField(max_length=45, blank=True, null=True)
+    purchase_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    sale_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    available_quantity = models.IntegerField(blank=True, null=True)
+    quantity_sold = models.IntegerField(blank=True, null=True)
+    image = models.ImageField(upload_to='productos/',blank=True, null=True)
+    tags = models.CharField(max_length=90, blank=True, null=True)
+    expiration_date = models.DateField(blank=True, null=True)
+    brand = models.CharField(max_length=20, blank=True, null=True)
+    category_idcategory = models.ForeignKey(Category, models.DO_NOTHING, db_column='category_idcategory')
 
     class Meta:
         managed = False
-        db_table = 'producto'
+        db_table = 'product'
+    def __str__(self):
+        return self.name
+    def minus(self):
+        return self.tags.lower()
 
 
-class ProductoOrden(models.Model):
-    idproducto_orden = models.IntegerField(primary_key=True)
-    producto_idproducto = models.ForeignKey(Producto, models.DO_NOTHING, db_column='producto_idproducto')
-    orden_idorden = models.ForeignKey(Orden, models.DO_NOTHING, db_column='orden_idorden')
-    cantidad = models.CharField(max_length=45, blank=True, null=True)
+class ProductOrder(models.Model):
+    idproducto_order = models.IntegerField(primary_key=True)
+    product_idproduct = models.ForeignKey(Product, models.DO_NOTHING, db_column='product_idproduct')
+    order_idorder = models.ForeignKey(Order, models.DO_NOTHING, db_column='order_idorder')
+    quantity = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'producto_orden'
+        db_table = 'product_order'
+    
+
+
+class Purchases(models.Model):
+    idpurchases = models.IntegerField(primary_key=True)
+    date = models.DateTimeField(blank=True, null=True)
+    total = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'purchases'
 
 
 class Review(models.Model):
     idreview = models.IntegerField(primary_key=True)
-    calificacion = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    producto_idproducto = models.ForeignKey(Producto, models.DO_NOTHING, db_column='producto_idproducto')
-    comprador_idcomprador = models.ForeignKey(Comprador, models.DO_NOTHING, db_column='comprador_idcomprador')
+    stars = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    product_idproduct = models.ForeignKey(Product, models.DO_NOTHING, db_column='product_idproduct')
+    buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
 
     class Meta:
         managed = False
         db_table = 'review'
 
 
-class Tarjeta(models.Model):
-    idtarjetacredito = models.IntegerField(primary_key=True)
-    numerotarjeta = models.CharField(max_length=45, blank=True, null=True)
-    titular = models.CharField(max_length=45, blank=True, null=True)
-    fechavencimiento = models.CharField(max_length=45, blank=True, null=True)
-    cvv = models.IntegerField(blank=True, null=True)
-    tipotarjeta = models.CharField(max_length=45, blank=True, null=True)
-    orden_idorden = models.ForeignKey(Orden, models.DO_NOTHING, db_column='orden_idorden')
+class Wishlist(models.Model):
+    product_idproduct = models.ForeignKey(Product, models.DO_NOTHING, db_column='product_idproduct')
+    buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
+    idwishlist = models.IntegerField(primary_key=True)
 
     class Meta:
         managed = False
-        db_table = 'tarjeta'
-
-
-class Transferencia(models.Model):
-    idtransferencia = models.IntegerField(primary_key=True)
-    bancoorigen = models.CharField(max_length=45, blank=True, null=True)
-    bancodestino = models.CharField(max_length=45, blank=True, null=True)
-    numerocuenta = models.IntegerField(blank=True, null=True)
-    cuentadestino = models.CharField(max_length=45, blank=True, null=True)
-    monto = models.IntegerField(blank=True, null=True)
-    orden_idorden = models.ForeignKey(Orden, models.DO_NOTHING, db_column='orden_idorden')
-
-    class Meta:
-        managed = False
-        db_table = 'transferencia'
+        db_table = 'wishlist'
