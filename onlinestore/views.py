@@ -16,7 +16,7 @@ def contact(request):
 def about(request):
     return render(request,'onlinestore/about.html')
 def shop(request):
-    searchTerm = request.GET.get('search')
+    searchTerm = request.GET.get('searchProduct')
     products = Product.objects.all()
     categories = Category.objects.all()
     return render(request,'onlinestore/shop.html', {'searchTerm': searchTerm, 'products': products, 'categories':categories})

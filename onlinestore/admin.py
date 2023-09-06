@@ -11,13 +11,13 @@ class Categoryadmin(admin.ModelAdmin):
     list_display= ("idcategory","name")
     search_fields = ("idcategory", "name")
 class Cartadmin(admin.ModelAdmin):
-    list_display= ("iddetails","product_idproduct", "buyer_idbuyer","product_units", "subtotal")
+    readonly_fields= ("iddetails","product_idproduct", "buyer_idbuyer","product_units", "subtotal")
     search_fields = ("iddetails","product_idproduct", "buyer_idbuyer","product_units", "subtotal")
 class Companyadmin(admin.ModelAdmin):
     list_display= ("idcompany","rut", "name", "phone_number", "address", "message")
     search_fields = ("idcompany","rut", "name", "phone_number", "address")
 class Wishlistadmin(admin.ModelAdmin):
-    list_display= ("idwishlist","product_idproduct","buyer_idbuyer")
+    readonly_fields= ("idwishlist","product_idproduct","buyer_idbuyer")
     search_fields = ("idwishlist","product_idproduct","buyer_idbuyer")
 """
 def dividebrand(obj):
@@ -30,10 +30,10 @@ class Purchasesadmin(admin.ModelAdmin):
     list_display= ("idpurchases", "date", "total")
     search_fiels= ("idpurchase", "date")
 class Orderadmin(admin.ModelAdmin):
-    list_display= ("idorder", "status","products_amount","transaction_date", "subtotal")
+    readonly_fields= ("idorder", "status","products_amount","transaction_date", "subtotal")
     search_fiels= ("idorder", "status","transaccion_date")
 class ProductOrderadmin(admin.ModelAdmin):
-    list_display = ("idproducto_order", "product_idproduct","order_idorder","quantity")
+    readonly_fields = ("idproducto_order", "product_idproduct","order_idorder","quantity")
     search_fields = ("idproducto_order", "product_idproduct","order_idorder","quantity")
 
 
