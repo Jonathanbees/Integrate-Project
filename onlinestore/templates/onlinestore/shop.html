@@ -16,12 +16,7 @@
                 <li class="pb-3">
                     <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
                         {{ categorie.name }}
-                        <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
                     </a>
-                    <ul class="collapse show list-unstyled pl-3">
-                        <li><a class="text-decoration-none" href="#">Men</a></li>
-                        <li><a class="text-decoration-none" href="#">Women</a></li>
-                    </ul>
                 </li>
                 {% endfor %}
             </ul>
@@ -44,15 +39,14 @@
                     </ul>
                 </div>
                 -->
-                <form action="">
+                <form method="GET">
                     <div class="col-md-6 pb-4">
                         <div class="d-flex">
-                            <label for="searchProduct" class="form-label" hidden>Search for product</label>
                             <div class="input-group rounded">
                                 <input type="text" class="form-control rounded" placeholder="Buscar" aria-label="Search"
                                     aria-describedby="search-addon" name="searchProduct"/>
                                 <!--<button type="submit" class="btn btn-success"><i class="fas fa-search"></i></button>-->
-                                <input type="submit" class="btn btn-success"><i class="fas fa-search"></i></input>
+                                <button type="submit" class="btn btn-success"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
                     </div>

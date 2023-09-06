@@ -3,12 +3,14 @@ from django.shortcuts import HttpResponse
 from django.urls import reverse
 from django.shortcuts import redirect
 from .models import *
+from django.db.models import query
 
 def admin(request):
     return redirect(reverse('admin:index'))
 
 # Create your views here.
 def index(request):
+    """Listar Categorías"""
     products=Product.objects.all()
     featured=products.order_by('sale_price')[:3]
     categories=Category.objects.all()
@@ -22,6 +24,7 @@ def index(request):
                 i+=1
     for p in product_category:
         print(p)
+    """Fin listar categorías"""
     return render(request, 'onlinestore/index.html',{'products':featured,'categories':product_category})
 
 def contact(request):
@@ -29,7 +32,10 @@ def contact(request):
 def about(request):
     return render(request,'onlinestore/about.html')
 def shop(request):
-    searchTerm = request.GET.get('searchProduct')
+    searchTerm = request.GET.get("searchProduct") #se recoge el input del buscador
     products = Product.objects.all()
+    #Buscador
+    if searchTerm:
+        products = Product.objects.filter(name__icontains=searchTerm)
     categories = Category.objects.all()
-    return render(request,'onlinestore/shop.html', {'searchTerm': searchTerm, 'products': products, 'categories':categories})
+    return render(request,'onlinestore/shop.html', {'products': products, 'categories':categories})
