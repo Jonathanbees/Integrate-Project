@@ -9,7 +9,20 @@ def admin(request):
 
 # Create your views here.
 def index(request):
-    return render(request, 'onlinestore/index.html')
+    products=Product.objects.all()
+    featured=products.order_by('sale_price')[:3]
+    categories=Category.objects.all()
+    i=0
+    product_category=[]
+    for c in categories:
+        if i<3:
+            p=products.filter(category_idcategory=c.idcategory)
+            if p:
+                product_category.append((c,p[0]))
+                i+=1
+    for p in product_category:
+        print(p)
+    return render(request, 'onlinestore/index.html',{'products':featured,'categories':product_category})
 
 def contact(request):
     return render(request,'onlinestore/contact.html')
