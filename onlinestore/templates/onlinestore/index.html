@@ -35,9 +35,11 @@
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <button>
-                                <img class="img-fluid" src="{{ product.image.url }}" alt="">
-                            </button>
+                            <a href="{% url 'product_detail' product.idproduct %}">
+                                <button>
+                                    <img class="img-fluid" src="{{ product.image.url }}" alt="">
+                                </button>
+                            </a>
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left align-self-center">
@@ -79,9 +81,9 @@
         <div class="row">
             {% for c in categories %}
             <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="{{ c.1.image.url }}" class="rounded-circle img-fluid border"></a>
+                <a href="{% url 'category' c.0.idcategory %}"><img src="{{ c.1.image.url }}" class="rounded-circle img-fluid border"></a>
                 <h5 class="text-center mt-3 mb-3" style="text-transform: uppercase;">{{ c.0.name }}</h5>
-                <p class="text-center"><a class="btn btn-success">Ir a comprar</a></p>
+                <p class="text-center"><a href="{% url 'category' c.0.idcategory %}" class="btn btn-success">Ir a comprar</a></p>
             </div>
             {% endfor %}
         </div>

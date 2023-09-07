@@ -72,7 +72,7 @@ https://templatemo.com/tm-559-zay-shop
                             <a class="nav-link" href="{% url 'index' %}">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">Nosotros</a>
+                            <a class="nav-link" href="{% url 'about' %}">Sobre la tienda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'shop' %}">Tienda</a>
@@ -156,29 +156,25 @@ https://templatemo.com/tm-559-zay-shop
                     <ul class="list-unstyled text-light footer-link-list">
                         <li>
                             <i class="fas fa-map-marker-alt fa-fw"></i>
-                            123 Consectetur at ligula 10660
+                            Calle 123A # 45-67, Barrio San Javier, Medellín, Colombia
                         </li>
                         <li>
                             <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                            <a class="text-decoration-none" href="tel:010-020-0340">321-654-0987</a>
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                            <a class="text-decoration-none" href="mailto:tendeus@company.com">tendeus@company.com</a>
                         </li>
                     </ul>
                 </div>
 
                 <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Categorias</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
+                        {% for category in allcategories %}
+                        <li><a href="{% url 'category' category.idcategory %}" class="text-decoration-none" style="text-transform: capitalize; href="#">{{ category.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
 
