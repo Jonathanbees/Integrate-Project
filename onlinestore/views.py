@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.shortcuts import HttpResponse
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -32,10 +32,27 @@ def contact(request):
 def about(request):
     return render(request,'onlinestore/about.html')
 def shop(request):
-    searchTerm = request.GET.get("searchProduct") #se recoge el input del buscador
     products = Product.objects.all()
     #Buscador
+    searchTerm = request.GET.get("searchProduct") #se recoge el input del buscador
     if searchTerm:
         products = Product.objects.filter(name__icontains=searchTerm)
+
     categories = Category.objects.all()
     return render(request,'onlinestore/shop.html', {'products': products, 'categories':categories})
+
+
+#Función para filtrar por categorias
+def category(request, category_id):
+    products = Product.objects.all()
+    categories = Category.objects.all()
+    """Inicio filtrado por categoria"""
+    category = get_object_or_404(Category, idcategory=category_id)
+    if category:
+        products = Product.objects.filter(category_idcategory = category)
+    """Fin filtrado por categoria"""
+    #Buscador
+    searchTerm = request.GET.get("searchProduct") #se recoge el input del buscador
+    if searchTerm:
+        products = Product.objects.filter(name__icontains=searchTerm)
+    return render(request, 'onlinestore/category.html', {'category': category, 'products': products, 'categories': categories})

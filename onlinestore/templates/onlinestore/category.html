@@ -11,9 +11,9 @@
 
         <div class="col-lg-3">
             <a href="{% url 'shop' %}" style="text-decoration: none; color: black;"><h1 class="h2 pb-4">Categorías</h1></a>
-            <ul style="list-style-type: none;"">
+            <ul style="list-style-type: none;">
                 {% for categorie in categories %}
-                <li class="pb-3" style="text-decoration: none;">
+                <li class="pb-3">
                     <a class="collapsed d-flex justify-content-between h3 text-decoration-none" style="color: black;" href="{% url 'category' categorie.idcategory %}">
                         {{ categorie.name }}
                     </a>
@@ -58,12 +58,12 @@
                 <div class="col-md-4">
                     <div class="card mb-4 product-wap rounded-0">
                         <div class="card rounded-0">
+                            
                             <img class="card-img rounded-0 img-fluid" src="{{ product.image.url }}">
                             <div
                                 class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <!--Botones para implementar después, favoritos, visualizar, carrito-->
                                 <ul class="list-unstyled">
-                                    
                                     <li><a class="btn btn-success text-white" href="shop-single.html"><i
                                                 class="far fa-heart"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
@@ -75,8 +75,8 @@
                         </div>
                         <div class="card-body">
                             <p class="text-muted text-right mb-0">${{ product.sale_price }}</p>
-                            <a href="shop-single.html" class="h2 text-decoration-none">{{ product.name }}</a>
-                            <ul class="w-100 list-unstyled d-block justify-content-between mb-1 mt-1">
+                            <a href="shop-single.html" class="h3 text-decoration-none">{{ product.name }}</a>
+                            <ul class="w-100 list-unstyled d-block justify-content-between mb-0">
                                 <li hidden><strong>{{ product.category_idcategory }}</strong></li>
                                 <li><b>Marca:</b>{{ product.brand }}</li>
                                 
@@ -100,12 +100,10 @@
                                         <i class="text-warning fa fa-star"></i>
                                         <i class="text-muted fa fa-star"></i>
                                         <i class="text-muted fa fa-star"></i>
-                                        
                                     </li>
-                                    
                                 </ul>
                                 -->
-                            <p class="mb-0 text-right" style="color: green;"><strong>Cantidad: </strong>{{ product.available_quantity }}</p>
+                                <p class="mb-0 text-right" style="color: green;"><strong>Cantidad: </strong>{{ product.available_quantity }}</p>
                         </div>
                     </div>
                 </div>
