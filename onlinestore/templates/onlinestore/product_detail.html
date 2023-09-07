@@ -1,0 +1,57 @@
+{% extends "onlinestore/template.html" %}
+
+{% load static %}
+
+{% block title %} Detalle Producto {% endblock %}
+
+{% block content %}
+<body>
+    <div class="card mb-3">
+        <div class="row g-0 justify-content-center">
+            <div class="col-md-4 border" style="max-height: 1700px;">
+                <img src="{{ product.image.url }}" class="rounded-start" style="max-width: 100%; padding: 20px;" alt="...">
+            </div>
+            <div class="col-md-8" style="max-width: 600px; border: 4px solid #59ab6e;">
+                <div class="card-body">
+                    <div class="row justify-content-between" style="padding:20px">
+                        <div class="col">
+                            <a class="btn btn-success text-white float-right" href="{% url 'product_detail' product.idproduct %}"><i class="far fa-heart"></i></a>
+                        </div>
+                        <div class="col">
+                            <p class="card-text" style="font-size: 1.2rem;">{{ product.quantity_sold }} vendidos</p>
+                        </div>
+                    </div>                    
+                    <h5 class="card-title" style="font-size: 2.3rem; font-weight: bold; padding: 20px;">{{ product.name }}</h5>
+                    <h6 class="card-text" style="font-size: 1.3rem; padding-left: 20px;">
+                        Marca: <span style="text-transform: uppercase;">{{ product.brand }}</span>
+                    </h6>         
+                    <h6 class="card-text" style="font-size: 2.5rem; font-weight: 400; padding-left: 20px; padding-top:70px">$ {{ product.purchase_price }}
+                    </h6>
+                    <h6 class="card-text" style="font-size: 1.5rem; font-weight: 400; padding-left: 20px; padding-top:200px">Unidades disponibles: {{ product.available_quantity }}
+                    <div class="d-grid gap-2" style="padding-top: 20px;">
+                        <button type="button" class="btn btn-success btn-lg btn-block" style="height: 50px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Comprar ahora
+                        </button>
+                        <button type="button" class="btn btn-lg btn-block " style="background-color:white; border-color: #59ab6e; color:#59ab6e; height: 50px; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Añadir a carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="row g-0 justify-content-center">
+            <div class="card" style="width: 63%;">
+                <div class="card-body">
+                  <h1 class="card-title" style="padding: 20px;">Descripción del producto</h1>
+                  <h4 class="card-text"style="padding: 20px;">{{ product.description }}</h4>
+                </div>
+              </div>
+        </div>
+    </div>
+    {% endblock %}
+
+</body>
+
+</html>

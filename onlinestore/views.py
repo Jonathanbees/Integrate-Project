@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.shortcuts import HttpResponse
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -23,7 +23,9 @@ def index(request):
     for p in product_category:
         print(p)
     return render(request, 'onlinestore/index.html',{'products':featured,'categories':product_category})
-
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    return render(request, 'onlinestore/product_detail.html', {'product': product})
 def contact(request):
     return render(request,'onlinestore/contact.html')
 def about(request):
