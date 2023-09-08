@@ -11,10 +11,10 @@
 
         <div class="col-lg-3">
             <a href="{% url 'shop' %}" style="text-decoration: none; color: black;"><h1 class="h2 pb-4">Categorías</h1></a>
-            <ul style="list-style-type: none;"">
+            <ul style="list-style-type: none; list-style: none;">
                 {% for categorie in categories %}
-                <li class="pb-3" style="text-decoration: none;">
-                    <a class="collapsed d-flex justify-content-between h3" style="color:black; text-transform: uppercase; text-decoration: underline;" href="{% url 'category' categorie.idcategory %}">
+                <li class="pb-3" style="text-decoration: none; list-style: none;">
+                    <a class="collapsed d-flex justify-content-between h3" style="color:black; text-transform: uppercase; text-decoration: none;" href="{% url 'category' categorie.idcategory %}">
                         {{ categorie.name }}
                     </a>
                 </li>
