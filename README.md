@@ -1,5 +1,5 @@
 # Tendeus
-Welcome to the [Tendeus] GitHub repository! This project requires several libraries and programs to run successfully. Please follow the instructions below to set up your environment and run the program.
+Welcome to the *Tendeus* GitHub repository! This project requires several libraries and programs to run successfully. Please follow the instructions below to set up your environment and run the program.
 
 ## Libraries and Programs Required
 Before you begin, make sure you have the following libraries and programs installed:
@@ -40,7 +40,7 @@ python manage.py runserver
   - Once the server is running, open your web browser and go to http://localhost:8000 (or the address provided by Django).
 That's it! You have successfully set up and executed the program. If you encounter any issues or have further questions, please refer to the wiki or reach out to our support team.
 
-Thank you for using [Tendeus]. Happy coding! 😊
+Thank you for using *Tendeus*. Happy coding! 😊
 
 ### Contributors:
 - Jonathan Betancur
