@@ -173,7 +173,7 @@ https://templatemo.com/tm-559-zay-shop
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Categorias</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         {% for category in allcategories %}
-                        <li><a href="{% url 'category' category.idcategory %}" class="text-decoration-none" style="text-transform: capitalize; href="#">{{ category.name }}</a></li>
+                        <li><a href="{% url 'category' category.idcategory %}" class="text-decoration-none" style="text-transform: capitalize"; href="#">{{ category.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -212,22 +212,21 @@ https://templatemo.com/tm-559-zay-shop
                     </ul>
                 </div>
                 <div class="col-auto">
-                    <label class="sr-only" for="subscribeEmail">Email address</label>
+                    <label class="sr-only" for="subscribeEmail">Correo electrónico</label>
                     <div class="input-group mb-2">
-                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
-                        <div class="input-group-text btn-success text-light">Subscribe</div>
+                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Correo">
+                        <div class="input-group-text btn-success text-light">Contactarnos</div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
 
         <div class="w-100 bg-black py-3">
             <div class="container">
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                            Copyright &copy; 2021 Company Name 
-                            | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                            Copyright &copy; 2021 Tendeus
                         </p>
                     </div>
                 </div>
