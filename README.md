@@ -42,7 +42,7 @@ That's it! You have successfully set up and executed the program. If you encount
 
 Thank you for using [Tendeus]. Happy coding! 😊
 
-###Contributors:
+### Contributors:
 - Jonathan Betancur
 - Santiago Gómez
 - Juan José Hernández
