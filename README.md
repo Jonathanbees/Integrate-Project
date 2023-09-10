@@ -15,12 +15,9 @@ Before you begin, make sure you have the following libraries and programs instal
 - Django
 - Pillow
 - Jazzmin
-- Bootstrap
 - Mysqlclient
-- HTML-CSS
 - MySQL-Mysql Workbench
 - Python
-- JavaScript
 
 ## Instructions to Run the Program
 Follow these steps to set up and run the program:
