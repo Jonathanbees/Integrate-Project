@@ -1,5 +1,13 @@
 # Tendeus
-Welcome to the *Tendeus* GitHub repository! This project requires several libraries and programs to run successfully. Please follow the instructions below to set up your environment and run the program.
+Welcome to the *Tendeus* GitHub repository! 
+
+## Context of the project
+
+Tendeus is an innovative online retail platform dedicated to bolstering a local business, enhancing their profitability, and expanding their customer reach. This project was conceived with the goal of revitalizing the local economy by putting together the power of e-commerce and digital marketing.
+
+Tendeus represents a bridge between traditional local businesses and the digital age, creating a win-win situation where local economies flourish, and consumers gain access to a wider array of products and services. By leveraging the power of technology, this project has the potential to make a lasting positive impact on communities while propelling local businesses toward sustained growth and success.
+
+*This project requires several libraries and programs to run successfully. Please follow the instructions below to set up your environment and run the program.*
 
 ## Libraries and Programs Required
 Before you begin, make sure you have the following libraries and programs installed:
