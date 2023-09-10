@@ -9,8 +9,34 @@ Tendeus represents a bridge between traditional local businesses and the digital
 
 *This project requires several libraries and programs to run successfully. Please follow the instructions below to set up your environment and run the program.*
 
-## Libraries and Programs Required
+## Programs required
 Before you begin, make sure you have the following libraries and programs installed:
+
+### Download Visual Studio Code:
+- Open your web browser and go to the official Visual Studio Code website at https://code.visualstudio.com/.
+- Click on the "Download" button to download the installer. Click the "Next" button to proceed with the installation.
+- Click "Install" to start the installation process.
+
+### Download Python:
+-Visit the official Python website at https://www.python.org/downloads/windows/.
+-Download the latest Python installer for Windows by clicking on the "Download Python" button in the version that you prefer
+-Click the "Install Now" button to start the installation process. The installer will copy Python files to your system.
+-Open the Command Prompt or PowerShell and type the command
+~~~
+python --version
+~~~
+This is to make sure that you installed it succesfully
+
+### Clone the github repository:
+- Open your web browser and go to https://github.com.
+- Log in to your GitHub account or register if you didn´t have one yet
+- Into the Command Prompt or Powershell run:
+~~~  
+git clone https://github.com/Jonathanbees/Integrate-Project
+~~~
+This will charge all the files of the repository into the folder that you select on the command prompt after
+
+## Libraries required
 
 - Django
 - Pillow
