@@ -18,14 +18,20 @@ Before you begin, make sure you have the following libraries and programs instal
 - Click "Install" to start the installation process.
 
 ### Download Python:
--Visit the official Python website at https://www.python.org/downloads/windows/.
--Download the latest Python installer for Windows by clicking on the "Download Python" button in the version that you prefer
--Click the "Install Now" button to start the installation process. The installer will copy Python files to your system.
--Open the Command Prompt or PowerShell and type the command
+- Visit the official Python website at https://www.python.org/downloads/windows/.
+- Download the latest Python installer for Windows by clicking on the "Download Python" button in the version that you prefer
+- Click the "Install Now" button to start the installation process. The installer will copy Python files to your system.
+- Open the Command Prompt or PowerShell and type the command
 ~~~
 python --version
 ~~~
 This is to make sure that you installed it succesfully
+
+### Download Mysql:
+- Visit the official mysql website at https://dev.mysql.com/downloads/installer/
+- Select the version of the mysql that you want to install
+- Follow the instructions of the installation wizard
+- *Note: During the installation process, you will be prompted to set a root password for MySQL. Make sure to remember this password as you'll need it later.*
 
 ### Clone the github repository:
 - Open your web browser and go to https://github.com.
@@ -43,8 +49,26 @@ This will charge all the files of the repository into the folder that you select
 - Jazzmin
 - Mysqlclient
 - MySQL-Mysql Workbench
-- Python
 
+### Install Pillow:
+  - In the command prompt, put the following code:
+  ~~~
+  pip install pillow
+  ~~~
+    
+### Install jazzmin:
+  - In the command prompt, put the following code:
+  ~~~
+  pip install jazzmin
+  ~~~
+    
+### Install mysqlclient:
+  - In the command prompt, put the following code:
+
+  ~~~
+  pip install mysqlclient
+  ~~~
+    
 ## Instructions to Run the Program
 Follow these steps to set up and run the program:
 
@@ -60,6 +84,7 @@ Follow these steps to set up and run the program:
 
   - Open your command prompt or terminal.
   - Navigate to the project folder that you previously set up.
+    
 4. Execute the Django Server:
 
   - Run the following command to start the Django development server:
