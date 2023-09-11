@@ -1,0 +1,23 @@
+{% extends 'template.html' %}
+{% block content %}
+<div class="card text-center">
+    <div class="card-header">
+      <strong>Hola... {{ buyer.name }}</strong> 🤗
+    </div>
+    <div class="card-body">
+      <h2 class="card-title" style="padding-bottom: 3%;">Gracias por usar <span style="color:#56ae6c">Tendeus</span> 🤩<br> Aquí tu informacion personal:</h2>
+      <div class="container" style="justify-content: center; width: 34%; padding-bottom: 60px;">
+        <h6 class="card-text"style="text-align: left; font-weight: 700; ">Nombre : {{ buyer.name }}</h6>
+        <h6 class="card-text"style="text-align: left; font-weight: 700;">Correo electrónico: {{ buyer.email }}</h6>
+        <h6 class="card-text"style="text-align: left; font-weight: 700;">Usuario: {{ buyer.username }}</h6>
+        <h6 class="card-text"style="text-align: left; font-weight: 700;">Contraseña: {{ buyer.password }}</h6>
+        <div class="d-flex justify-content-end" style="padding-top: 20px;">
+            <a href="#" style="color:white; background-color: #56ae6c; border-color: #56ae6c;" class="btn btn-primary">Editar información</a>
+        </div>
+      </div>
+      <h6 class="card-text">Por personas como tú logramos impactar positivamente los vendedores de barrio en Colombia 💫</h6>
+    </div>
+    <div class="card-footer text-body-secondary">
+    </div>
+  </div>
+{% endblock content %}

@@ -39,7 +39,7 @@ https://templatemo.com/tm-559-zay-shop
                     <i class="fa fa-envelope mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:Tendeus@gmail.com">Tendeus@gmail.com</a>
                     <i class="fa fa-phone mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:6045805681">6045805681</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:6045805681">321-654-0987</a>
                 </div>
                 <div>
                     <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
@@ -94,28 +94,45 @@ https://templatemo.com/tm-559-zay-shop
                     <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
+                    {% if user.is_authenticated %}
                     <a class="nav-icon position-relative text-decoration-none" href="#" id="cart-icon">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                     </a>
+                    {% endif %}
                     <a class="nav-icon position-relative text-decoration-none" href="#" id="profile-icon">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        {% if user.is_authenticated %}
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
+                        {% endif %}
                     </a>
-                    <div class="profile-menu" id="profile-menu">
-                        <ul>
-                            <li><a href="{% url 'admin' %}">Mi Perfil</a></li>
-                            <li><a href="#">Configuración</a></li>
-                            <li><a href="#">Cerrar Sesión</a></li>
-                        </ul>
-                    </div>
-                    <div class="cart-menu" id="cart-menu">
-                        <ul>
-                            <li><a href="#">Ver Carrito</a></li>
-                            <li><a href="#">Historial de compras</a></li>
-                            <li><a href="#">Finalizar Compra</a></li>
-                        </ul>
-                    </div>
+                    {% if user.is_authenticated %}
+                        <div class="profile-menu" id="profile-menu">
+                            <ul>
+                                <li><a href="{% url 'account' %}">Mi Perfil</a></li>
+                                <li><a href="{% url 'account' %}">Configuración</a></li>
+                                <li><a href="{% url 'logoutaccount' %}">Cerrar Sesión</a></li>
+                            </ul>
+                        </div>
+                        ({{ user.username }})
+                        {% else %}
+                        <div class="profile-menu" id="profile-menu">
+                            <ul>
+                                <li><a href="{% url 'loginaccount' %}">Ingresar (Comprador)</a></li>
+                                <li><a href="{% url 'admin' %}">Ingresar (Vendedor)</a></li>
+                                <li><a href="{% url 'signupaccount' %}">Registrarse</a></li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                    {% if user.is_authenticated %}
+                        <div class="cart-menu" id="cart-menu">
+                            <ul>
+                                <li><a href="#">Ver Carrito</a></li>
+                                <li><a href="#">Historial de compras</a></li>
+                                <li><a href="#">Finalizar Compra</a></li>
+                            </ul>
+                        </div>
+                        {% endif %}
                 </div>
             </div>
 
@@ -131,7 +148,7 @@ https://templatemo.com/tm-559-zay-shop
             </div>
             <form action="" method="get" class="modal-content modal-body border-0 p-0">
                 <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Buscar ...">
                     <button type="submit" class="input-group-text bg-success text-light">
                         <i class="fa fa-fw fa-search text-white"></i>
                     </button>
@@ -141,8 +158,6 @@ https://templatemo.com/tm-559-zay-shop
     </div>
 
     {% block content %} {% endblock %}
-
-
 
 
 
@@ -160,11 +175,11 @@ https://templatemo.com/tm-559-zay-shop
                         </li>
                         <li>
                             <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none" href="tel:010-020-0340">321-654-0987</a>
+                            <a class="text-decoration-none" href="tel:321-654-0987">321-654-0987</a>
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:tendeus@company.com">tendeus@company.com</a>
+                            <a class="text-decoration-none" href="mailto:tendeus@company.com">tendeus@gmail.com</a>
                         </li>
                     </ul>
                 </div>
@@ -177,18 +192,15 @@ https://templatemo.com/tm-559-zay-shop
                         {% endfor %}
                     </ul>
                 </div>
-
                 <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Páginas</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Home</a></li>
-                        <li><a class="text-decoration-none" href="#">About Us</a></li>
-                        <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
-                        <li><a class="text-decoration-none" href="#">FAQs</a></li>
-                        <li><a class="text-decoration-none" href="#">Contact</a></li>
+                        <li><a class="text-decoration-none" href="{% url 'index' %}">Inicio</a></li>
+                        <li><a class="text-decoration-none" href="{% url 'about' %}">Sobre la tienda</a></li>
+                        <li><a class="text-decoration-none" href="{% url 'shop' %}">Tienda</a></li>
+                        <li><a class="text-decoration-none" href="{% url 'contact' %}">Contáctanos</a></li>
                     </ul>
                 </div>
-
             </div>
 
             <div class="row text-light mb-4">

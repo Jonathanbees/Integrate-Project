@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #Local apps
     'onlinestore',
+    'accounts',
     
 ]
 
@@ -84,7 +85,7 @@ ROOT_URLCONF = 'proyecto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
+        'DIRS': [os.path.join(BASE_DIR, 'onlinestore/templates/onlinestore'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
