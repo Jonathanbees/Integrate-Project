@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 class BankTransfer(models.Model):
     idbank_transfer = models.IntegerField(primary_key=True)
@@ -20,6 +21,9 @@ class Buyer(models.Model):
     password = models.CharField(max_length=60, blank=True, null=True)
     preferences = models.JSONField(blank=True, null=True)
     email = models.CharField(max_length=45, blank=True, null=True)
+
+    def __str__(self):
+        return self.idbuyer
 
     class Meta:
         managed = False

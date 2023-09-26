@@ -74,7 +74,16 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <p class="text-muted text-right mb-0" style="text-align: end;">${{ product.sale_price }}</p>
+                            {% if product.next_to_expire %}
+                            <p
+                                class="text-success text-right"
+                                style="text-align: end;">
+                                <i class="fas fa-exclamation-triangle"></i> Expira en {{product.next_to_expire.0}} días
+                        </p>
+                            <h6 class="text-succes text-right d-flex justify-content-between"><span style="text-align: right; text-decoration:line-through">${{product.sale_price}}</span><span class="float-left;"style="color:#56ae6c; font-weight: 700;">${{product.next_to_expire.1}}</span class="float-right"></h6>
+                            {% else %}
+                            <h6 class="text-success text-right mb-0" style="color:#56ae6c; text-align: end;"> ${{ product.sale_price }}</h6>
+                            {% endif %}
                             <a href="{% url 'product_detail' product.idproduct %}" class="h3 text-decoration-none">{{ product.name }}</a>
                             <ul class="w-100 list-unstyled d-block justify-content-between mb-1 mt-1">
                                 <li hidden><strong>{{ product.category_idcategory }}</strong></li>
@@ -92,6 +101,8 @@
                                         class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
+            <!-- DEBUG: Imprimir contenido del diccionario -->
+
                             <!--
                                 <ul class="list-unstyled d-flex justify-content-center mb-1">
                                     <li>
@@ -105,7 +116,7 @@
                                     
                                 </ul>
                                 -->
-                            <p class="mb-0 text-right" style="color: green;"><strong>Cantidad: </strong>{{ product.available_quantity }}</p>
+                            <p class="mb-0 text-right" style="color: #56ae6c;"><strong>Cantidad: </strong>{{ product.available_quantity }}</p>
                         </div>
                     </div>
                 </div>

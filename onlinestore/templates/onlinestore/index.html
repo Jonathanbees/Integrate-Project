@@ -50,6 +50,7 @@
                                 <p>
                                     {{product.description}}
                                 </p>
+                                <h6>Unidades disponibles: {{ product.available_quantity }}</h6>
                             </div>
                         </div>
                     </div>
@@ -91,95 +92,48 @@
     <!-- End Categories of The Month -->
 
     <!-- Start Featured Product -->
-    <!--
+    
     <section class="bg-light">
         <div class="container py-5">
             <div class="row text-center py-3">
                 <div class="col-lg-6 m-auto">
-                    <h1 class="h1">Featured Product</h1>
+                    <h1 class="h1">Productos proximos a expirar</h1>
                     <p>
-                        Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        Excepteur sint occaecat cupidatat non proident.
+                        Los siguientes productos tienen una fecha cercana de expiración y por tanto se ofrecen con cierto descuento.
                     </p>
                 </div>
             </div>
             <div class="row">
+                {% for product in expiration %}
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="{% static './assets/img/feature_prod_01.jpg' %}" class="card-img-top" alt="...">
+                        <a href="{% url 'product_detail' product.idproduct %}">
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">$240.00</li>
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Gym Weight</a>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
+                            {% if product.next_to_expire %}
+                            <p
+                                class="text-success text-right"
+                                style="text-align: end;">
+                                <i class="fas fa-exclamation-triangle"></i> Expira en {{product.next_to_expire.0}} días
                             </p>
-                            <p class="text-muted">Reviews (24)</p>
+                            <h6 class="text-succes text-right d-flex justify-content-between"><span style="text-align: right; text-decoration:line-through">${{product.sale_price}}</span><span class="float-left;"style="color:#56ae6c; font-weight: 700;">${{product.next_to_expire.1}}</span class="float-right"></h6>
+                            {% else %}
+                            <h6 class="text-success text-right mb-0" style="color:#56ae6c; text-align: end;"> ${{ product.sale_price }}</h6>
+                            {% endif %}
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">{{product.name}}</a>
+                            <p class="card-text">
+                                {{product.description}}
+                            </p>
+                            <p class="text-muted">{{product.quantity_sold}} unidades vendidas</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="{% static './assets/img/feature_prod_02.jpg' %}" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">$480.00</li>
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Cloud Nike Shoes</a>
-                            <p class="card-text">
-                                Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed, commodo ullamcorper.
-                            </p>
-                            <p class="text-muted">Reviews (48)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="{% static './assets/img/feature_prod_03.jpg' %}" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">$360.00</li>
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Summer Addides Shoes</a>
-                            <p class="card-text">
-                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
-                            </p>
-                            <p class="text-muted">Reviews (74)</p>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
--->
+
     <!-- End Featured Product -->
 
     {% endblock %}

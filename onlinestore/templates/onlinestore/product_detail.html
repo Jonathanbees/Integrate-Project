@@ -24,9 +24,18 @@
                     <h5 class="card-title" style="font-size: 1.9rem; font-weight: bold; padding: 20px;">{{ product.name }}</h5>
                     <h6 class="card-text" style="font-size: 1.1rem; padding-left: 20px;">
                         Marca: <span style="text-transform: uppercase;">{{ product.brand }}</span>
-                    </h6>         
-                    <h6 class="card-text" style="font-size: 1.8rem; font-weight: 400; padding-left: 20px; padding-top:40px">$ {{ product.purchase_price }}
-                    </h6>
+                    </h6> 
+                    {% if product.next_to_expire %}
+                    <p
+                        class="text-success text-left"
+                        style="text-align: end;">
+                        <i class="fas fa-exclamation-triangle"></i> Expira en {{product.next_to_expire.0}} días <br>
+                        ({{product.expiration_date}})
+                    </p>
+                    <h6 class="text-succes text-right d-flex justify-content-between"><span style="padding-left: 20px;font-size: 1.8rem;text-align: right; text-decoration:line-through">${{product.sale_price}}</span><span class="float-left;"style="font-size: 1.8rem;color:#56ae6c; font-weight: 400;">${{product.next_to_expire.1}}</span class="float-right"></h6>
+                    {% else %}
+                    <h6 class="text-success text-right mb-0" style="font-size: 1.8rem;color:#56ae6c; text-align: end;"> ${{ product.sale_price }}</h6>
+                    {% endif %}
                     <h6 class="card-text" style="font-size: 1.2rem; font-weight: 400; padding-left: 20px; padding-top:70px">Unidades disponibles: {{ product.available_quantity }}
                     <div class="d-grid gap-2" style="padding-top: 20px;">
                         <button type="button" class="btn btn-success btn-lg btn-block" style="height: 50px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -46,6 +55,13 @@
                 <div class="card-body">
                   <h3 class="card-title" style="padding: 20px;">Descripción del producto</h3>
                   <h6 class="card-text"style="padding: 20px;">{{ product.description }}</h6>
+                  {% if product.expiration_date %}
+                  {% if product.next_to_expire %}
+                  <h6 class="card-text"style="padding: 20px; ">Fecha de expiración: <span style="color: #59ab6e;">{{ product.expiration_date }}</span></h6>
+                  {% else %}
+                  <h6 class="card-text"style="padding: 20px;">Fecha de expiración: {{ product.expiration_date }}</h6>
+                  {% endif %}
+                  {% endif %}
                 </div>
               </div>
         </div>

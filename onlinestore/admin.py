@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.utils.html import mark_safe
 
 class Buyeradmin(admin.ModelAdmin):
-    list_display= ("idbuyer","name", "username", "preferences", "email")
+    list_display= ("idbuyer","name", "preferences", "email")
     search_fields = ("name", "username")
 class Categoryadmin(admin.ModelAdmin):
     list_display= ("idcategory","name")
@@ -25,7 +25,7 @@ def dividebrand(obj):
 """
 class Productadmin(admin.ModelAdmin):
     list_display= ("idproduct","name","code","description","purchase_price","sale_price", "available_quantity", "tags", "expiration_date","brand","category_idcategory", "image")
-    search_fields = ("name","code","description","available_quantity", "tags", "expiration_date","brand","category_idcategory")
+    search_fields = ("name","code","description","available_quantity", "tags", "expiration_date","brand")
 class Purchasesadmin(admin.ModelAdmin):
     list_display= ("idpurchases", "date", "total")
     search_fiels= ("idpurchase", "date")
