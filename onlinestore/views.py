@@ -25,11 +25,8 @@ def admin(request):
 def index(request):
     """Listar Categorías"""
     products=Product.objects.all()
-<<<<<<< HEAD
     expiration=products.order_by('expiration_date')[:3]
     expiring_products(expiration)
-=======
->>>>>>> 021414cd5ddd342a970e4a3956d9968db0b10b14
     featured=products.order_by('available_quantity')[:3]
     categories=Category.objects.all()
     i=0
@@ -49,10 +46,7 @@ def index(request):
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     allcategories=Category.objects.order_by('name')
-<<<<<<< HEAD
     expiring_products([product])
-=======
->>>>>>> 021414cd5ddd342a970e4a3956d9968db0b10b14
     return render(request, 'onlinestore/product_detail.html', {'product': product,'allcategories':allcategories})
 
 def contact(request):
@@ -70,10 +64,7 @@ def shop(request):
         products = Product.objects.filter(name__icontains=searchTerm)
 
     categories = Category.objects.order_by('name')
-<<<<<<< HEAD
     expiring_products(products)
-=======
->>>>>>> 021414cd5ddd342a970e4a3956d9968db0b10b14
     return render(request,'onlinestore/shop.html', {'products': products, 'categories':categories,'allcategories':categories})
 
 
@@ -92,8 +83,5 @@ def category(request, category_id):
     if searchTerm:
         products = Product.objects.filter(name__icontains=searchTerm)
     allcategories=Category.objects.order_by('name')
-<<<<<<< HEAD
     expiring_products(products)
-=======
->>>>>>> 021414cd5ddd342a970e4a3956d9968db0b10b14
     return render(request, 'onlinestore/shop.html', { 'products': products, 'categories': categories,'allcategories':allcategories})
