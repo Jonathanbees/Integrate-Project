@@ -80,9 +80,11 @@ https://templatemo.com/tm-559-zay-shop
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'contact' %}">Contáctanos</a>
                         </li>
+                        
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
+                    <!--
                     <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
                         <div class="input-group">
                             <input type="text" class="form-control" id="inputMobileSearch" placeholder="Buscar">
@@ -91,14 +93,19 @@ https://templatemo.com/tm-559-zay-shop
                             </div>
                         </div>
                     </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                    -->
+                    <a class="nav-icon d-none d-lg-inline" href="{% url 'shop' %}">
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
                     {% if user.is_authenticated %}
+                    <a class="nav-icon position-relative text-decoration-none" href="" id="favorite-icon">
+                        <i class="fa fa-fw fa-heart text-dark mr-1"></i>
+                    </a>
                     <a class="nav-icon position-relative text-decoration-none" href="#" id="cart-icon">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                     </a>
+                    
                     {% endif %}
                     <a class="nav-icon position-relative text-decoration-none" href="#" id="profile-icon">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
@@ -126,10 +133,12 @@ https://templatemo.com/tm-559-zay-shop
                         {% endif %}
                     {% if user.is_authenticated %}
                         <div class="cart-menu" id="cart-menu">
+                            <!--Dentro de este div es que se van a ir cargando las cosas-->
                             <ul>
                                 <li><a href="#">Ver Carrito</a></li>
                                 <li><a href="#">Historial de compras</a></li>
                                 <li><a href="#">Finalizar Compra</a></li>
+                                <button> Vaciar </button>
                             </ul>
                         </div>
                         {% endif %}

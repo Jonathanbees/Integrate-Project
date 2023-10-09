@@ -52,9 +52,8 @@
                     </div>
                 </form>
             </div>
-            <form method="post">
             <div class="row">
-                
+                <form method="post">
                 {% for product in products %}
                 <!--Producto 1-->
                 <div class="col-md-4">
@@ -120,15 +119,16 @@
                                 -->
                             <p class="mb-0 text-right" style="color: #56ae6c;"><strong>Cantidad: </strong>{{ product.available_quantity }}</p>
                         </div>
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit">Add to cart</button>
                     </div>
                 </div>
                 <!--Finaliza producto 1-->
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add to cart</button>
                 {% endfor %}
+                </form>
             </div>
-            </form>
+        
             <div div="row">
                 <ul class="pagination pagination-lg justify-content-end">
                     <li class="page-item disabled">

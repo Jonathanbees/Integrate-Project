@@ -11,13 +11,10 @@
         <h6 class="card-text"style="text-align: left; font-weight: 700;">Correo electrónico: {{ buyer.email }}</h6>
         <h6 class="card-text"style="text-align: left; font-weight: 700;">Usuario: {{ buyer.username }}</h6>
         <h6 class="card-text"style="text-align: left; font-weight: 700;">Contraseña: {{ buyer.password }}</h6>
-<<<<<<< HEAD
         Longitud {{ buyer.preferences|length }}
         <h6 class="card-text"style="text-align: left; font-weight: 700;">Preferencias: {% for key, value in buyer.preferences.items %}
           {{ key }}: {{ value }}<br>
           {% endfor %}</h6>
-=======
->>>>>>> 021414cd5ddd342a970e4a3956d9968db0b10b14
         <div class="d-flex justify-content-end" style="padding-top: 20px;">
             <a href="#" style="color:white; background-color: #56ae6c; border-color: #56ae6c;" class="btn btn-primary">Editar información</a>
         </div>

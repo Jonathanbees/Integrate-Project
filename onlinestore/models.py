@@ -174,3 +174,10 @@ class Wishlist(models.Model):
     class Meta:
         managed = False
         db_table = 'wishlist'
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    line_item_total = models.DecimalField(max_digits=10, decimal_places=2)

@@ -1,7 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from django.shortcuts import HttpResponse
+from django.shortcuts import render,redirect, get_object_or_404
 from django.urls import reverse
-from django.shortcuts import redirect
 from .models import *
 from django.db.models import query
 import datetime as dt
@@ -65,6 +63,7 @@ def shop(request):
 
     categories = Category.objects.order_by('name')
     expiring_products(products)
+    categories = Category.objects.order_by('name')
     return render(request,'onlinestore/shop.html', {'products': products, 'categories':categories,'allcategories':categories})
 
 
