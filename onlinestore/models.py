@@ -68,47 +68,9 @@ class Category(models.Model):
         return self.name
 
 
-class Company(models.Model):
-    idcompany = models.IntegerField(primary_key=True)
-    rut = models.CharField(max_length=20, blank=True, null=True)
-    name = models.CharField(max_length=45, blank=True, null=True)
-    phone_number = models.CharField(max_length=45, blank=True, null=True)
-    address = models.CharField(max_length=45, blank=True, null=True)
-    message = models.CharField(max_length=80, blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'company'
-
-
-class Order(models.Model):
-    idorder = models.IntegerField(primary_key=True)
-    buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
-    status = models.CharField(max_length=45, blank=True, null=True)
-    subtotal = models.IntegerField(blank=True, null=True)
-    products_amount = models.IntegerField(blank=True, null=True)
-    method = models.CharField(max_length=45, blank=True, null=True)
-    purchases_idpurchases = models.ForeignKey('Purchases', models.DO_NOTHING, db_column='purchases_idpurchases')
-    transaction_date = models.DateTimeField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'order'
-    def __str__(self):
-        return self.idorder
-
-class Paypal(models.Model):
-    idpaypal = models.IntegerField(primary_key=True)
-    date = models.CharField(max_length=45, blank=True, null=True)
-    email = models.CharField(max_length=45, blank=True, null=True)
-    details = models.CharField(max_length=45, blank=True, null=True)
-    order_idorder = models.ForeignKey(Order, models.DO_NOTHING, db_column='order_idorder')
-
-    class Meta:
-        managed = False
-        db_table = 'paypal'
-
-
+    
+    
 class Product(models.Model):
     idproduct = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=45, blank=True, null=True)
@@ -131,6 +93,22 @@ class Product(models.Model):
         return self.name
     def minus(self):
         return self.tags.lower()
+    
+class Order(models.Model):
+    idorder = models.IntegerField(primary_key=True)
+    buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
+    status = models.CharField(max_length=45, blank=True, null=True)
+    subtotal = models.IntegerField(blank=True, null=True)
+    products_amount = models.IntegerField(blank=True, null=True)
+    method = models.CharField(max_length=45, blank=True, null=True)
+    purchases_idpurchases = models.ForeignKey('Purchases', models.DO_NOTHING, db_column='purchases_idpurchases')
+    transaction_date = models.DateTimeField(blank=True, null=True)
+    items = models.ManyToManyField(Cart)
+
+    def get_cart_items(self):
+        return self.items.all()
+    def get_cart_total(self):
+        return sum([item.product.sale_price for item in self.items.all()])
 
 
 class ProductOrder(models.Model):
@@ -143,6 +121,37 @@ class ProductOrder(models.Model):
         managed = False
         db_table = 'product_order'
     
+class Company(models.Model):
+    idcompany = models.IntegerField(primary_key=True)
+    rut = models.CharField(max_length=20, blank=True, null=True)
+    name = models.CharField(max_length=45, blank=True, null=True)
+    phone_number = models.CharField(max_length=45, blank=True, null=True)
+    address = models.CharField(max_length=45, blank=True, null=True)
+    message = models.CharField(max_length=80, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'company'
+
+    class Meta:
+        managed = False
+        db_table = 'order'
+    def __str__(self):
+        return self.idorder
+
+
+class Paypal(models.Model):
+    idpaypal = models.IntegerField(primary_key=True)
+    date = models.CharField(max_length=45, blank=True, null=True)
+    email = models.CharField(max_length=45, blank=True, null=True)
+    details = models.CharField(max_length=45, blank=True, null=True)
+    order_idorder = models.ForeignKey(Order, models.DO_NOTHING, db_column='order_idorder')
+
+    class Meta:
+        managed = False
+        db_table = 'paypal'
+
+
 
 
 class Purchases(models.Model):
@@ -174,10 +183,3 @@ class Wishlist(models.Model):
     class Meta:
         managed = False
         db_table = 'wishlist'
-
-
-class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    line_item_total = models.DecimalField(max_digits=10, decimal_places=2)

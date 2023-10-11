@@ -1,26 +1,62 @@
-{% extends 'base.html' %}
+{% extends "onlinestore/template.html" %}
+
+{% load static %}
 
 {% block content %}
-    <h2>Cart</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart.cartitem_set.all %}
-                <tr>
-                    <td>{{ item.product.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.product.price }}</td>
-                    <td>{{ item.line_item_total }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h3>Total: {{ cart.total }}</h3>
+<div class="container py-5">
+    <div class="row">
+
+        <div class="col-lg-3">
+            <a href="{% url 'shop' %}" style="text-decoration: none; color: black;">
+                <h1 class="h2 pb-4">Categorías</h1>
+            </a>
+            <ul style="list-style-type: none; list-style: none;">
+                {% for categorie in categories %}
+                <li class="pb-3" style="text-decoration: none; list-style: none;">
+                    <a class="collapsed d-flex justify-content-between h3"
+                        style="color:black; text-transform: uppercase; text-decoration: none;"
+                        href="{% url 'category' categorie.idcategory %}">
+                        {{ categorie.name }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="row">
+
+                <!--Producto 1-->
+                <div class="col-md-4">
+                    <h2>Cart</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Buyer</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if product %}
+                            <tr>
+                                <td>{{ products }}</td>
+                                <td>{{ user }}</td>
+                                <td>{{ quantity }}</td>
+                                <td>{{ price }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <h3>Total: {{ cart.total }}</h3>
+                </div>
+                <!--Finaliza producto 1-->
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
 {% endblock %}

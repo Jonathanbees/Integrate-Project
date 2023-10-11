@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from onlinestore.models import Product, Cart, CartItem
+from django.contrib.auth.models import User
+
+from django.contrib.auth.decorators import login_required
+from onlinestore.models import Buyer, Category, Product, Cart
 """
 def cart_add(request, product_id):
     products = Product.objects.order_by('name')
@@ -30,11 +33,6 @@ def cart_detail(request):
         product = get_object_or_404(Product, id=product_id)
         total += quantity * product.price
     return render(request, 'cart/detail.html', {'cart': cart, 'total': total})
-"""
-def cart_detail(request):
-    cart = Cart.objects.get(id=request.session['cart_id'])
-    context = {'cart': cart}
-    return render(request, 'cart/detail.html', context)
 
 def add_to_cart(cart, request, product_id):
     cart = Cart.objects.get(id=request.session['cart_id'])
@@ -48,3 +46,27 @@ def add_to_cart(cart, request, product_id):
     cart.total += product.price
     cart.save()
     return redirect('cart:cart_detail')
+"""
+@login_required
+def add_to_cart(request, product_id):
+    user_profile = get_object_or_404(Buyer,idbuyer=request.user.id)
+    product = get_object_or_404(Product, pk=product_id)
+    categories = Category.objects.order_by('name')
+    if user_profile and product:
+        Cart_entrance = Cart.objects.filter(usuario=user_profile, producto=product).first()
+        if Cart_entrance:
+            productprice += product.sale_price
+            unitsproduct += 1
+            Cart.save(user_profile, product, user_profile, unitsproduct, productprice)
+            return render(request,'cart/detail.html', {'products': product,'user': user_profile,'quantity': unitsproduct, 'price': productprice, 'categories':categories,'allcategories':categories})
+        else:
+            productprice = product.sale_price
+            unitsproduct = 1
+            Cart.save(user_profile, product, user_profile, unitsproduct, productprice)
+            return render(request,'cart/detail.html', {'products': product,'user': user_profile,'quantity': unitsproduct, 'price': productprice, 'categories':categories,'allcategories':categories})
+    else:
+        product = ""
+        return render(request,'cart/detail.html', {'products': product,'user': user_profile,'quantity': unitsproduct, 'price': productprice, 'categories':categories,'allcategories':categories})
+
+    
+    
