@@ -51,9 +51,12 @@ def add_to_cart(cart, request, product_id):
 def add_to_cart(request, product_id):
     user_profile = get_object_or_404(Buyer,idbuyer=request.user.id)
     product = get_object_or_404(Product, pk=product_id)
+    productprice = product.sale_price
+    unitsproduct = 1
     categories = Category.objects.order_by('name')
+    counteriddetail = 1
     if user_profile and product:
-        Cart_entrance = Cart.objects.filter(usuario=user_profile, producto=product).first()
+        Cart_entrance, created = Cart.objects.get_or_create(buyer_idbuyer=user_profile, product_idproduct=product)
         if Cart_entrance:
             productprice += product.sale_price
             unitsproduct += 1

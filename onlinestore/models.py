@@ -45,7 +45,7 @@ class Card(models.Model):
 
 
 class Cart(models.Model):
-    iddetails = models.IntegerField(primary_key=True)
+    iddetails = models.AutoField(primary_key=True,null=False)
     product_idproduct = models.ForeignKey('Product', models.DO_NOTHING, db_column='product_idproduct')
     buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
     product_units = models.IntegerField(blank=True, null=True)

@@ -70,7 +70,7 @@
                                                 class="far fa-heart"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="{% url 'product_detail' product.idproduct %}"><i
                                                 class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
+                                    <li><a class="btn btn-success text-white mt-2" href="{% url 'cart:add_to_cart' product.idproduct %}"><i
                                                 class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
@@ -122,7 +122,7 @@
                         </div>
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button type="submit">Add to cart</button>
+                        <!--<button type="submit">Add to cart</button>-->
                     </div>
                 </div>
                 <!--Finaliza producto 1-->
