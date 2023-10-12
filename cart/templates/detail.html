@@ -16,26 +16,22 @@
                         <thead>
                             <tr>
                                 <th>Product</th>
-                                <th>Buyer</th>
                                 <th>Quantity</th>
                                 <th>Subtotal</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% if product %}
+                            {% for register in cart %}
                             <tr>
-                                <td>{{ products }}</td>
-                                <td>{{ user }}</td>
-                                <td>{{ quantity }}</td>
-                                <td>{{ price }}</td>
+                                <td>{{ register.name }}</td>
+                                <td>{{ register.product_units }}</td>
+                                <td>{{ register.subtotal }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    <h3>Total: {{ cart.total }}</h3>
+                    <h3>Total: {{ total }}</h3>
                 </div>
-                <!--Finaliza producto 1-->
-                {% endfor %}
             </div>
         </div>
 

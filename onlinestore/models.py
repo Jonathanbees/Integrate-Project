@@ -23,7 +23,7 @@ class Buyer(models.Model):
     email = models.CharField(max_length=45, blank=True, null=True)
 
     def __str__(self):
-        return self.idbuyer
+        return self.name
 
     class Meta:
         managed = False
@@ -89,8 +89,11 @@ class Product(models.Model):
     class Meta:
         managed = False
         db_table = 'product'
+    def __int__(self):
+        return self.idproduct
     def __str__(self):
         return self.name
+    
     def minus(self):
         return self.tags.lower()
     
