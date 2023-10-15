@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
-from onlinestore.models import Buyer, Category, Product, Cart
+from onlinestore.models import Buyer, Product, Cart
 
 @login_required
 def add_to_cart(request, product_id):

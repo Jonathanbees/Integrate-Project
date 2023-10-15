@@ -135,11 +135,21 @@ https://templatemo.com/tm-559-zay-shop
                         <div class="cart-menu" id="cart-menu">
                             <!--Dentro de este div es que se van a ir cargando las cosas-->
                             <ul>
-                                <li><a href="#">Ver Carrito</a></li>
+                            {% if cart %}
+                                {% for register in cart %}
+                                <!--<li><a href="#">Ver Carrito</a></li>
                                 <li><a href="#">Historial de compras</a></li>
                                 <li><a href="#">Finalizar Compra</a></li>
-                                <button> Vaciar </button>
+                                <button> Vaciar </button>-->
+                                <li>{{ register.name }}</li>
+                                <li>{{ register.product_units }}</li>
+                                {% endfor %}
                             </ul>
+                            {% else %}
+                            <ul>
+                                <p>No tienes nada en el carrito</p>
+                            </ul>
+                            {% endif %}
                         </div>
                         {% endif %}
                 </div>

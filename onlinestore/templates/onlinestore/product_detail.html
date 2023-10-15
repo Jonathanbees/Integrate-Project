@@ -42,7 +42,7 @@
                             Comprar ahora
                         </button>
                         <button type="button" class="btn btn-lg btn-block " style="background-color:white; border-color: #59ab6e; color:#59ab6e; height: 50px; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Añadir a carrito
+                            <a style="text-decoration: none; color:#59ab6e" href="{% url 'cart:add_to_cart' product.idproduct %}">Añadir al carrito</a>
                         </button>
                     </div>
                 </div>
