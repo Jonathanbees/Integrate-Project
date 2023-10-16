@@ -3,11 +3,13 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/png" href="{% static 'assets/img/t_icon2rb.png' %}">
     <title>{%block title %} {% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="{% static 'assets/img/apple-icon.png' %}">
+
     <!--
     <link rel="shortcut icon" type="{% static 'image/x-icon' %}" href="{% static 'assets/img/favicon.ico' %}">
     -->
@@ -56,11 +58,9 @@ https://templatemo.com/tm-559-zay-shop
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
-
-            <a class="navbar-brand text-success logo h1 align-self-center" href="{% url 'index' %}">
-                TendeUs
-            </a>
-
+            <img src="{% static 'assets/img/tendeus.png' %}" width="250" height="100" alt="Brand Icon">
+              
+              
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -167,7 +167,7 @@ https://templatemo.com/tm-559-zay-shop
             <div class="row">
 
                 <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">TendeUs</h2>
+                    <img src="{% static 'assets/img/tendeus.png' %}" width="250" height="100" alt="Brand Icon">
                     <ul class="list-unstyled text-light footer-link-list">
                         <li>
                             <i class="fas fa-map-marker-alt fa-fw"></i>

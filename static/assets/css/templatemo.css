@@ -115,6 +115,7 @@ body, ul, li, p, a, label, input, div {
   opacity: 1;
 }
 /* Carousel Hero */
+
 #template-mo-zay-hero-carousel .carousel-indicators li {
   margin-top: -50px;
   background-color: #59ab6e;

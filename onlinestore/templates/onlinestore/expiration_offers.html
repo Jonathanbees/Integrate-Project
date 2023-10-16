@@ -1,0 +1,86 @@
+{% extends "onlinestore/template.html" %}
+
+{% load static %}
+
+{% block title %} Ofertas {% endblock %}
+
+{% block content %}
+<!-- Start Content -->
+<div class="container py-5">
+    <div class="row text-center py-3">
+        <div class="col-lg-6 m-auto">
+            <h1 class="h1">Productos que expirarán en los siguientes días</h1>
+            <h5 class="h5y">
+                Los siguientes productos se ofrecen con cierto descuento.
+                ¡¡Aprovecha!!<br>
+                Y de paso el tendero no se verá tan afectado por las posibles perdidas. 💪
+            </h5>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="row">
+                {% for product in products %}
+                <!--Producto 1-->
+                <div class="col-md-4">
+                    <div class="card mb-4 product-wap rounded-0">
+                        <div class="card rounded-0">
+                            <img class="card-img rounded-0 img-fluid" src="{{ product.image.url }}">
+                            <div
+                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                <!--Botones para implementar después, favoritos, visualizar, carrito-->
+                                <ul class="list-unstyled">
+                                    
+                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i
+                                                class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="{% url 'product_detail' product.idproduct %}"><i
+                                                class="far fa-eye"></i></a></li>
+                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
+                                                class="fas fa-cart-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% if product.next_to_expire %}
+                            <p
+                                class="text-success text-right"
+                                style="text-align: end;">
+                                <i class="fas fa-exclamation-triangle"></i> Expira en {{product.next_to_expire.0}} días
+                        </p>
+                            <h6 class="text-succes text-right d-flex justify-content-between"><span style="text-align: right; text-decoration:line-through">${{product.sale_price}}</span><span class="float-left;"style="color:#56ae6c; font-weight: 700;">${{product.next_to_expire.1}}</span class="float-right"></h6>
+                            {% else %}
+                            <h6 class="text-success text-right mb-0" style="color:#56ae6c; text-align: end;"> ${{ product.sale_price }}</h6>
+                            {% endif %}
+                            <a href="{% url 'product_detail' product.idproduct %}" class="h3 text-decoration-none">{{ product.name }}</a>
+                            <ul class="w-100 list-unstyled d-block justify-content-between mb-1 mt-1">
+                                <li hidden><strong>{{ product.category_idcategory }}</strong></li>
+                                <li><b>Marca: </b><span style="text-transform: capitalize;">{{ product.brand }}</span></li>
+                                
+                                <li class="pt-2">
+                                    <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                    <span
+                                        class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                </li>
+                            </ul>
+                            <p class="mb-0 text-right" style="color: #56ae6c;"><strong>Cantidad: </strong>{{ product.available_quantity }}</p>
+                        </div>
+                    </div>
+                </div>
+                <!--Finaliza producto 1-->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Content -->
+<!-- Start Brands -->
+<!--End Brands-->
+{% endblock %}
+
+</html>

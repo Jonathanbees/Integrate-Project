@@ -67,6 +67,18 @@ def shop(request):
     expiring_products(products)
     return render(request,'onlinestore/shop.html', {'products': products, 'categories':categories,'allcategories':categories})
 
+def expiration_offers(request):
+    products = Product.objects.order_by('expiration_date')
+    categories = Category.objects.order_by('name')
+    expiring_products(products)
+    exp_prod=[]
+    for p in products:
+        if p.next_to_expire:
+            exp_prod.append(p)
+    return render(request,'onlinestore/expiration_offers.html', {'products': exp_prod, 'categories':categories})
+
+
+
 
 #Función para filtrar por categorias
 def category(request, category_id):
