@@ -99,12 +99,12 @@ class Product(models.Model):
     
 class Order(models.Model):
     idorder = models.IntegerField(primary_key=True)
-    buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
+    buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer', null=True, default=None)
     status = models.CharField(max_length=45, blank=True, null=True)
     subtotal = models.IntegerField(blank=True, null=True)
     products_amount = models.IntegerField(blank=True, null=True)
     method = models.CharField(max_length=45, blank=True, null=True)
-    purchases_idpurchases = models.ForeignKey('Purchases', models.DO_NOTHING, db_column='purchases_idpurchases')
+    purchases_idpurchases = models.ForeignKey('Purchases', models.DO_NOTHING, db_column='purchases_idpurchases', null=True, default=None)
     transaction_date = models.DateTimeField(blank=True, null=True)
     items = models.ManyToManyField(Cart)
 
