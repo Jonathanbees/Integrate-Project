@@ -41,9 +41,18 @@
                         <button type="button" class="btn btn-success btn-lg btn-block" style="height: 50px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Comprar ahora
                         </button>
+                        {% if user.is_authenticated %}
+                        {% if product.in_cart %}
+                        <a href="{% url 'cart:delete_stay' product.idproduct %}" class="btn btn-lg btn-block"style="background-color:white; border-color: #5da12d; color:#5da12d; height: 50px; border-radius: 8px;">Quitar del carrito
+                        </a>
+                        {% else %}
                         <a href="{% url 'cart:add_to_cart_stay' product.idproduct %}" class="btn btn-lg btn-block"style="background-color:white; border-color: #5da12d; color:#5da12d; height: 50px; border-radius: 8px;">Añadir al carrito
                         </a>
-                        
+                        {% endif %}
+                        {% else %}
+                        <li><a class="btn btn-success text-white mt-2" href="{% url 'loginaccount'%}"><i        class="fas fa-cart-plus"></i></a></li>
+                        {% endif %}
+                
                     </div>
                 </div>
             </div>

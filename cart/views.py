@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from onlinestore.models import Buyer, Product, Cart
 import onlinestore.views as onlinestore_views
 
-def get_cart_ready(cartproduct):
+def get_cart_ready(cartproduct,request):
     products = []
     subtotal = 0
     total=0
@@ -23,7 +23,7 @@ def get_cart_ready(cartproduct):
                 else:
                     p.exceed=False
                 products.append(p)
-            onlinestore_views.expiring_products(products)
+            onlinestore_views.expiring_products(products,request)
             for p in products:
                 if p.next_to_expire:
                     p.total=p.next_to_expire[1]*p.product_units
@@ -54,7 +54,7 @@ def add_to_cart(request, product_id):
                 subtotal=product.sale_price
             )
         cartproduct= Cart.objects.all().filter(buyer_idbuyer=user_profile.idbuyer)
-        ready_cart=get_cart_ready(cartproduct)
+        ready_cart=get_cart_ready(cartproduct,request)
         products = ready_cart[0]
         subtotal = ready_cart[1]
         total=ready_cart[2]
@@ -84,7 +84,7 @@ def add_to_cart_stay(request, product_id):
 def cart(request):
     user_profile = get_object_or_404(Buyer,idbuyer=request.user.id)
     cartproduct= Cart.objects.all().filter(buyer_idbuyer=user_profile.idbuyer)
-    ready_cart=get_cart_ready(cartproduct)
+    ready_cart=get_cart_ready(cartproduct,request)
     products = ready_cart[0]
     subtotal = ready_cart[1]
     total=ready_cart[2]
@@ -98,7 +98,7 @@ def units_cart(request):
         user_profile = get_object_or_404(Buyer,idbuyer=request.user.id)
         cartproduct= Cart.objects.all().filter(buyer_idbuyer=user_profile.idbuyer)
         if cartproduct:
-            ready_cart=get_cart_ready(cartproduct)
+            ready_cart=get_cart_ready(cartproduct,request)
             units_cart=ready_cart[4]
             return units_cart
         else:
@@ -116,7 +116,7 @@ def reduce_one(request,product_id):
         register_to_reduce.subtotal = product.sale_price * register_to_reduce.product_units
         register_to_reduce.save()
     cartproduct= Cart.objects.all().filter(buyer_idbuyer=user_profile.idbuyer)
-    ready_cart=get_cart_ready(cartproduct)
+    ready_cart=get_cart_ready(cartproduct,request)
     products = ready_cart[0]
     subtotal = ready_cart[1]
     total=ready_cart[2]
@@ -133,10 +133,20 @@ def delete(request, product_id):
         r=register_to_delete.first()
         r.delete()
     cartproduct= Cart.objects.all().filter(buyer_idbuyer=user_profile.idbuyer)
-    ready_cart=get_cart_ready(cartproduct)
+    ready_cart=get_cart_ready(cartproduct,request)
     products = ready_cart[0]
     subtotal = ready_cart[1]
     total=ready_cart[2]
     discount=ready_cart[3]
     total_units=ready_cart[4]
     return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units})
+
+@login_required
+def delete_stay(request, product_id):
+    user_profile = get_object_or_404(Buyer, idbuyer=request.user.id)
+    product = get_object_or_404(Product, pk=product_id)
+    register_to_delete=Cart.objects.all().filter(buyer_idbuyer=user_profile.idbuyer, product_idproduct=product)
+    if register_to_delete:
+        r=register_to_delete.first()
+        r.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
