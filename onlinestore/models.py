@@ -129,6 +129,8 @@ class Product(models.Model):
         db_table = 'product'
     def __str__(self):
         return self.name
+    def __int__(self):
+        return self.idproduct
     def minus(self):
         return self.tags.lower()
 

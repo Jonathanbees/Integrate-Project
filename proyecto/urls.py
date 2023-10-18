@@ -34,7 +34,8 @@ urlpatterns = [
     path('category/<int:category_id>/',views.category , name='category'),
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),
     path('accounts/', include('accounts.urls')),
-    path('offers/', views.expiration_offers,name='offers')
+    path('offers/', views.expiration_offers,name='offers'),
+    path('', include('cart.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
 
