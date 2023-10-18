@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #Local apps
     'onlinestore',
     'accounts',
+    'cart',
     
 ]
 

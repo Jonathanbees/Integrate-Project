@@ -1,0 +1,38 @@
+{% extends "onlinestore/template.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+                <!--Producto 1-->
+                <div class="col">
+                    <h2>Cart</h2>
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Product</th>
+                                <th></th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for register in cart %}
+                            <tr>
+                                <td colspan="2">{{ register.name }}</td>
+                                <td>{{ register.product_units }}</td>
+                                <td colspan="2">{{ register.subtotal }}</td>
+                                <td><button type="button" class="btn btn-danger">Eliminar</button></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <h3>Total: {{ total }}</h3>
+                </div>
+    </div>
+</div>
+
+{% endblock %}
