@@ -6,8 +6,8 @@ from .models import *
 from django.db.models import query
 import datetime as dt
 from decimal import Decimal
+import cart.views as cart_views
 
-# Processing functions
 
 def expiring_products(products):
     next_to_expire={}
@@ -15,15 +15,13 @@ def expiring_products(products):
         if p.expiration_date:
             days_to_expire=(p.expiration_date-dt.date.today()).days
             if days_to_expire<40:
-                p.next_to_expire=[days_to_expire,int(p.purchase_price+((p.sale_price-p.purchase_price)*Decimal(0.2)))]
+                p.next_to_expire=[days_to_expire,int(p.purchase_price+((p.sale_price-p.purchase_price)*Decimal(0.2))),round((p.sale_price-p.purchase_price)*Decimal(0.8))]
             else:
                 p.next_to_expire=None
 def admin(request):
     return redirect(reverse('admin:index'))
 
-# Create your views here.
 def index(request):
-    """Listar Categorías"""
     products=Product.objects.all()
     expiration=products.order_by('expiration_date')[:3]
     expiring_products(expiration)
@@ -37,17 +35,16 @@ def index(request):
             if p:
                 product_category.append((c,p[0]))
                 i+=1
-    for p in product_category:
-        print(p)
     allcategories=Category.objects.order_by('name')
-    """Fin listar categorías"""
-    return render(request, 'onlinestore/index.html',{'products':featured,'categories':product_category,'allcategories':allcategories,'expiration':expiration})
+    total_units=cart_views.units_cart(request)
+    return render(request, 'onlinestore/index.html',{'total_units':total_units,'products':featured,'categories':product_category,'allcategories':allcategories,'expiration':expiration})
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     allcategories=Category.objects.order_by('name')
     expiring_products([product])
-    return render(request, 'onlinestore/product_detail.html', {'product': product,'allcategories':allcategories})
+    total_units=cart_views.units_cart(request)
+    return render(request, 'onlinestore/product_detail.html', {'total_units':total_units,'product': product,'allcategories':allcategories})
 
 def contact(request):
     allcategories=Category.objects.order_by('name')
@@ -65,7 +62,8 @@ def shop(request):
 
     categories = Category.objects.order_by('name')
     expiring_products(products)
-    return render(request,'onlinestore/shop.html', {'products': products, 'categories':categories,'allcategories':categories})
+    total_units=cart_views.units_cart(request)
+    return render(request,'onlinestore/shop.html', {'total_units':total_units,'products': products, 'categories':categories,'allcategories':categories})
 
 def expiration_offers(request):
     products = Product.objects.order_by('expiration_date')
@@ -96,4 +94,5 @@ def category(request, category_id):
         products = Product.objects.filter(name__icontains=searchTerm)
     allcategories=Category.objects.order_by('name')
     expiring_products(products)
-    return render(request, 'onlinestore/shop.html', { 'products': products, 'categories': categories,'allcategories':allcategories})
+    total_units=cart_views.units_cart(request)
+    return render(request, 'onlinestore/shop.html', {'total_units':total_units, 'products': products, 'categories': categories,'allcategories':allcategories})

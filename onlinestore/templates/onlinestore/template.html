@@ -91,19 +91,19 @@ https://templatemo.com/tm-559-zay-shop
                             </div>
                         </div>
                     </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                    <a class="nav-icon d-none d-lg-inline" href="{% url 'shop' %}">
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
                     {% if user.is_authenticated %}
-                    <a class="nav-icon position-relative text-decoration-none" href="#" id="cart-icon">
-                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+                    <a class="nav-icon position-relative text-decoration-none"href="{% url 'cart:cart' %}"  id="cart-icon">
+                        <i class="fa fa-fw fa-shopping-cart text-dark mr-1"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ total_units }}</span>
                     </a>
                     {% endif %}
                     <a class="nav-icon position-relative text-decoration-none" href="#" id="profile-icon">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
                         {% if user.is_authenticated %}
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
+                        <!---<span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>--->
                         {% endif %}
                     </a>
                     {% if user.is_authenticated %}
@@ -126,11 +126,6 @@ https://templatemo.com/tm-559-zay-shop
                         {% endif %}
                     {% if user.is_authenticated %}
                         <div class="cart-menu" id="cart-menu">
-                            <ul>
-                                <li><a href="#">Ver Carrito</a></li>
-                                <li><a href="#">Historial de compras</a></li>
-                                <li><a href="#">Finalizar Compra</a></li>
-                            </ul>
                         </div>
                         {% endif %}
                 </div>

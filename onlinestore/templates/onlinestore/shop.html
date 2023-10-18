@@ -49,9 +49,13 @@
                                 <button type="submit" class="btn btn-success"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
+                        <div id="cart-success-message" style="display: none" class="alert alert-success">
+                            Producto agregado al carrito exitosamente
+                        </div>
                     </div>
                 </form>
             </div>
+            <form method="POST">
             <div class="row">
                 {% for product in products %}
                 <!--Producto 1-->
@@ -67,9 +71,9 @@
                                     <li><a class="btn btn-success text-white" href="shop-single.html"><i
                                                 class="far fa-heart"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="{% url 'product_detail' product.idproduct %}"><i
-                                                class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="{% url 'cart:add_to_cart' product.idproduct %}"><i
-                                                    class="fas fa-cart-plus"></i></a></li>
+                                                class="far fa-eye"></i></a>
+                                            </li>
+                                    <li><a class="btn btn-success text-white mt-2" href="{% url 'cart:add_to_cart_stay' product.idproduct %}"><i        class="fas fa-cart-plus"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -80,9 +84,9 @@
                                 style="text-align: end;">
                                 <i class="fas fa-exclamation-triangle"></i> Expira en {{product.next_to_expire.0}} días
                         </p>
-                            <h6 class="text-succes text-right d-flex justify-content-between"><span style="text-align: right; text-decoration:line-through">${{product.sale_price}}</span><span class="float-left;"style="color:#167435; font-weight: 700;">${{product.next_to_expire.1}}</span class="float-right"></h6>
+                            <h6 class="text-succes text-right d-flex justify-content-between"><span style="text-align: right; text-decoration:line-through">${{product.sale_price}}</span><span class="float-left;"style="color:#5da12d; font-weight: 700;">${{product.next_to_expire.1}}</span class="float-right"></h6>
                             {% else %}
-                            <h6 class="text-success text-right mb-0" style="text-align: end;"> ${{ product.sale_price }}</h6>
+                            <h6 class="text-success text-right mb-0" style="color:#5da12d; text-align: end;"> ${{ product.sale_price }}</h6>
                             {% endif %}
                             <a href="{% url 'product_detail' product.idproduct %}" class="h3 text-decoration-none">{{ product.name }}</a>
                             <ul class="w-100 list-unstyled d-block justify-content-between mb-1 mt-1">
@@ -116,13 +120,17 @@
                                     
                                 </ul>
                                 -->
-                            <p class="mb-0 text-right" style="color: #56ae6c;"><strong>Cantidad: </strong>{{ product.available_quantity }}</p>
+                            <p class="mb-0 text-right" style="color: #5da12d;"><strong>Cantidad: </strong>{{ product.available_quantity }}</p>
                         </div>
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <!--<button type="submit">Add to cart</button>-->
                     </div>
                 </div>
                 <!--Finaliza producto 1-->
                 {% endfor %}
             </div>
+            </form>
             <div div="row">
                 <ul class="pagination pagination-lg justify-content-end">
                     <li class="page-item disabled">

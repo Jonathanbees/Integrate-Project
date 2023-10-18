@@ -36,9 +36,6 @@ def logoutaccount(request):
 @login_required
 def account(request):
     user=request.user
-    print("El usuario:")
-    print(user)
-    print(user.id)
     buyer=Buyer.objects.get(idbuyer=user.id)
     allcategories=Category.objects.order_by('name')
     return render(request, 'account.html',{'buyer':buyer,'allcategories':allcategories})
