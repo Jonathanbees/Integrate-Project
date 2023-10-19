@@ -81,6 +81,7 @@ def add_to_cart_stay(request, product_id):
                 subtotal=product.sale_price
             )
     return redirect(request.META.get('HTTP_REFERER'))
+
 @login_required
 def cart(request):
     user_profile = get_object_or_404(Buyer,idbuyer=request.user.id)

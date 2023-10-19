@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'onlinestore',
     'accounts',
     'cart',
-    
+    'Wishlist',   
 ]
 
 JAZZMIN_SETTINGS = {
@@ -110,7 +110,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tendeus',
         'USER': 'root',
-        'PASSWORD': '1234',
+        'PASSWORD': 'Estudiante13.',
         'HOST':'localhost',
         'PORT':'3306',
     }

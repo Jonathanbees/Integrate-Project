@@ -1,0 +1,45 @@
+{% extends "onlinestore/template.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+                <!--Producto 1-->
+                <div class="col">
+                    <h2>Lista de deseos</h2>
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Producto</th>
+                                <th></th>
+								<th>Precio</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for products in wishlist %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'product_detail' products.idproduct %}">
+                                        <img src="{{ products.image.url }}" alt="{{ products.name }}" width="50" height="50">
+                                    </a>
+                                    {{ products.name }}
+                                </td>
+                                <td>{{ products.sale_price }}</td>
+                                <td><a type="button" class="btn btn-danger"href="{% url 'Wishlist:delete_stay' products.idproduct%}">Eliminar</a></td>
+                                {% if products.in_cart %}
+                                <td><a type="button" class="btn btn-success"href="{% url 'cart:delete_stay' products.idproduct%}">Quitar del carrito</a></td>
+                                {% else %}
+                                <td><a type="button" class="btn btn-success"href="{% url 'cart:add_to_cart_stay' products.idproduct%}">Añadir al carrito</a></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+    </div>
+</div>
+
+{% endblock %}
