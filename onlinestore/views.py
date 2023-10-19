@@ -83,9 +83,6 @@ def expiration_offers(request):
             exp_prod.append(p)
     return render(request,'onlinestore/expiration_offers.html', {'products': exp_prod, 'categories':categories})
 
-
-
-
 #Función para filtrar por categorias
 def category(request, category_id):
     products = Product.objects.all()

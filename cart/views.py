@@ -61,6 +61,7 @@ def add_to_cart(request, product_id):
         discount=ready_cart[3]
         total_units=ready_cart[4]
         return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units})
+
 @login_required
 def add_to_cart_stay(request, product_id):
     user_profile = get_object_or_404(Buyer, idbuyer=request.user.id)
@@ -80,6 +81,7 @@ def add_to_cart_stay(request, product_id):
                 subtotal=product.sale_price
             )
     return redirect(request.META.get('HTTP_REFERER'))
+
 @login_required
 def cart(request):
     user_profile = get_object_or_404(Buyer,idbuyer=request.user.id)

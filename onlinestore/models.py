@@ -169,10 +169,14 @@ class Review(models.Model):
 
 
 class Wishlist(models.Model):
+    idwishlist = models.AutoField(primary_key=True,null=False)
     product_idproduct = models.ForeignKey(Product, models.DO_NOTHING, db_column='product_idproduct')
     buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
-    idwishlist = models.IntegerField(primary_key=True)
+    
 
     class Meta:
         managed = False
         db_table = 'wishlist'
+        
+    def __int__(self):
+        return self.idwishlist

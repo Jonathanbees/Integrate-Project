@@ -30,11 +30,16 @@
                                 class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <!--Botones para implementar después, favoritos, visualizar, carrito-->
                                 <ul class="list-unstyled">
-                                    
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i
-                                                class="far fa-heart"></i></a></li>
+                                    {% if user.is_authenticated %}
+                                        {% if product.in_wishlist %}
+                                        <li><a class="btn btn-success text-white mt-2" href="{% url 'Wishlist:delete_stay' product.idproduct %}"><i       class="fas fa-heart"></i></a></li>
+                                        {% else %}
+                                        <li><a class="btn btn-success text-white mt-2" href="{% url 'Wishlist:add_to_wishlist' product.idproduct %}"><i       class="far fa-heart"></i></a></li>
+                                        {% endif %}
+                                    {% endif %}
                                     <li><a class="btn btn-success text-white mt-2" href="{% url 'product_detail' product.idproduct %}"><i
-                                                class="far fa-eye"></i></a></li>
+                                                class="far fa-eye"></i></a>
+                                            </li>
                                     {% if user.is_authenticated %}
                                         {% if product.in_cart %}
                                         {% else %}

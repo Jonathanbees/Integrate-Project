@@ -36,6 +36,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('offers/', views.expiration_offers,name='offers'),
     path('', include('cart.urls')),
+    path('mi-app/', include(('Wishlist.urls', 'wishlist'), namespace='wishlist')),
 ]
 urlpatterns += staticfiles_urlpatterns()
 
