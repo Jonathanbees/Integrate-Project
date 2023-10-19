@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from onlinestore.models import Buyer, Product, Wishlist, Cart
+from onlinestore.models import Buyer, Product, Wishlist, Cart, Category
 import onlinestore.views as onlinestore_views
 import cart.views as cart_views
 
@@ -29,7 +29,9 @@ def ver_wishlist(request):
             p = get_object_or_404(Product, pk=i.product_idproduct)
             products.append(p)
     onlinestore_views.expiring_products(products,request)
-    return render(request,'wishlist.html', {'wishlist': products })
+    total_units=cart_views.units_cart(request)
+    allcategories=Category.objects.order_by('name')
+    return render(request,'wishlist.html', {'wishlist': products, 'total_units':total_units, 'allcategories':allcategories })
 
 @login_required
 def delete_stay(request, product_id):

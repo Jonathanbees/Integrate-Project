@@ -82,7 +82,7 @@ def expiration_offers(request):
         if p.next_to_expire:
             exp_prod.append(p)
     total_units=cart_views.units_cart(request)
-    return render(request,'onlinestore/expiration_offers.html', {'total_units':total_units,'products': exp_prod, 'categories':categories})
+    return render(request,'onlinestore/expiration_offers.html', {'total_units':total_units,'products': exp_prod, 'categories':categories, 'allcategories': categories})
 
 #Función para filtrar por categorias
 def category(request, category_id):
