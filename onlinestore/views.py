@@ -81,7 +81,8 @@ def expiration_offers(request):
     for p in products:
         if p.next_to_expire:
             exp_prod.append(p)
-    return render(request,'onlinestore/expiration_offers.html', {'products': exp_prod, 'categories':categories})
+    total_units=cart_views.units_cart(request)
+    return render(request,'onlinestore/expiration_offers.html', {'total_units':total_units,'products': exp_prod, 'categories':categories})
 
 
 

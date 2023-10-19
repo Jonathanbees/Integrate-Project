@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
-from onlinestore.models import Buyer, Product, Cart
+from onlinestore.models import Buyer, Product, Cart, Category
 import onlinestore.views as onlinestore_views
 
 def get_cart_ready(cartproduct,request):
@@ -60,7 +60,8 @@ def add_to_cart(request, product_id):
         total=ready_cart[2]
         discount=ready_cart[3]
         total_units=ready_cart[4]
-        return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units})
+        allcategories=Category.objects.order_by('name')
+        return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units, 'allcategories': allcategories})
 @login_required
 def add_to_cart_stay(request, product_id):
     user_profile = get_object_or_404(Buyer, idbuyer=request.user.id)
@@ -90,7 +91,8 @@ def cart(request):
     total=ready_cart[2]
     discount=ready_cart[3]
     total_units=ready_cart[4]
-    return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units})
+    allcategories=Category.objects.order_by('name')
+    return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units, 'allcategories': allcategories})
 
 def units_cart(request):
     #se pregunta si hay un usuario logeado

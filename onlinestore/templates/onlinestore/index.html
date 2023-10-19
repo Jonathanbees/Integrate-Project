@@ -122,7 +122,7 @@
                                 style="text-align: end;">
                                 <i class="fas fa-exclamation-triangle"></i> Expira en {{product.next_to_expire.0}} días
                             </p>
-                            <h6 class="text-success text-right d-flex justify-content-between"><span style="text-align: right; text-decoration:line-through">${{product.sale_price}}</span><span class="float-left;"style="color:#5da12d; font-weight: 700;">${{product.next_to_expire.1}}</span class="float-right"></h6>
+                            <h6 class="text-danger text-right d-flex justify-content-between"><span style="text-align: right; text-decoration:line-through">${{product.sale_price}}</span><span class="float-left;"style="color:#5da12d; font-weight: 700;">${{product.next_to_expire.1}}</span class="float-right"></h6>
                             {% else %}
                             <h6 class="text-success text-right mb-0" style="color:#5da12d; text-align: end;"> ${{ product.sale_price }}</h6>
                             {% endif %}
