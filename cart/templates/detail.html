@@ -8,6 +8,7 @@
                 <!--Producto 1-->
                 <div class="col">
                     <h2 class="h2 text-success" style="font-weight: 700;">Tu Carrito</h2>
+                    {% include 'messages.html' %}
                     <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
@@ -66,7 +67,7 @@
                         <h4 class="mr-2">Subtotal: $ {{ subtotal }}</h4>
                         <h4 class="mr-2">Ahorras: $ {{ discount }}</h4>
                         <h3 class="mr-2">Total: $ {{ total }}</h3>
-                        <a type="button" class="btn btn-success" href="#">Pagar</a>
+                        <a type="button" class="btn btn-success" href="{% url 'purchase:create_order'%}">Realizar Pedido</a>
                     </div>
                 </div>
                  

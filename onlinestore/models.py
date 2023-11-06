@@ -82,14 +82,15 @@ class Company(models.Model):
 
 
 class Order(models.Model):
-    idorder = models.IntegerField(primary_key=True)
+    idorder = models.AutoField(primary_key=True)
     buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
     status = models.CharField(max_length=45, blank=True, null=True)
     subtotal = models.IntegerField(blank=True, null=True)
     products_amount = models.IntegerField(blank=True, null=True)
     method = models.CharField(max_length=45, blank=True, null=True)
-    purchases_idpurchases = models.ForeignKey('Purchases', models.DO_NOTHING, db_column='purchases_idpurchases')
     transaction_date = models.DateTimeField(blank=True, null=True)
+    total = models.IntegerField(blank=True, null=True)
+    order_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -113,7 +114,7 @@ class Product(models.Model):
     idproduct = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=45, blank=True, null=True)
     code = models.CharField(max_length=45, blank=True, null=True)
-    description = models.CharField(max_length=45, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
     purchase_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     sale_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     available_quantity = models.IntegerField(blank=True, null=True)
@@ -121,7 +122,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='productos/',blank=True, null=True)
     tags = models.CharField(max_length=90, blank=True, null=True)
     expiration_date = models.DateField(blank=True, null=True)
-    brand = models.CharField(max_length=20, blank=True, null=True)
+    brand = models.CharField(max_length=45, blank=True, null=True)
     category_idcategory = models.ForeignKey(Category, models.DO_NOTHING, db_column='category_idcategory')
 
     class Meta:
@@ -136,25 +137,19 @@ class Product(models.Model):
 
 
 class ProductOrder(models.Model):
-    idproducto_order = models.IntegerField(primary_key=True)
+    idproducto_order = models.AutoField(primary_key=True)
     product_idproduct = models.ForeignKey(Product, models.DO_NOTHING, db_column='product_idproduct')
     order_idorder = models.ForeignKey(Order, models.DO_NOTHING, db_column='order_idorder')
-    quantity = models.CharField(max_length=45, blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
+    nondiscounted_unit_price = models.IntegerField(blank=True, null=True)
+    discounted_unit_price = models.IntegerField(blank=True, null=True)
+    discount = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'product_order'
     
 
-
-class Purchases(models.Model):
-    idpurchases = models.IntegerField(primary_key=True)
-    date = models.DateTimeField(blank=True, null=True)
-    total = models.CharField(max_length=45, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'purchases'
 
 
 class Review(models.Model):
@@ -169,7 +164,7 @@ class Review(models.Model):
 
 
 class Wishlist(models.Model):
-    idwishlist = models.AutoField(primary_key=True,null=False)
+    idwishlist = models.IntegerField(primary_key=True,null=False)
     product_idproduct = models.ForeignKey(Product, models.DO_NOTHING, db_column='product_idproduct')
     buyer_idbuyer = models.ForeignKey(Buyer, models.DO_NOTHING, db_column='buyer_idbuyer')
     

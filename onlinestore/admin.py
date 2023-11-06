@@ -43,6 +43,5 @@ admin.site.register(Cart, Cartadmin)
 admin.site.register(Product, Productadmin)
 admin.site.register(Wishlist, Wishlistadmin)
 admin.site.register(Order, Orderadmin)
-admin.site.register(Purchases, Purchasesadmin)
 admin.site.register(ProductOrder,ProductOrderadmin)
 

@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'onlinestore',
     'accounts',
     'cart',
-    'Wishlist',   
+    'Wishlist',
+    'purchase',
 ]
 
 JAZZMIN_SETTINGS = {

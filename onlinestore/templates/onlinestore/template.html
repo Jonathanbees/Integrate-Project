@@ -95,12 +95,16 @@ https://templatemo.com/tm-559-zay-shop
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
                     {% if user.is_authenticated %}
-                    <a class="nav-icon position-relative text-decoration-none" href="{% url 'Wishlist:ver_wishlist' %}" id="heart-icon">
+                    <a class="nav-icon position-relative text-decoration-none" href="{% url 'Wishlist:see_wishlist' %}" id="heart-icon">
                         <i class="fa fa-fw fa-heart text-dark mr-1"></i>
                     </a>
                     <a class="nav-icon position-relative text-decoration-none"href="{% url 'cart:cart' %}"  id="cart-icon">
                         <i class="fa fa-fw fa-shopping-cart text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ total_units }}</span>
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none"href="{% url 'purchase:see_orders' %}"  id="cart-icon">
+                        <i class="fa fa-fw fa-shopping-bag text-dark mr-1"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ order_units }}</span>
                     </a>
                     {% endif %}
                     <a class="nav-icon position-relative text-decoration-none" href="#" id="profile-icon">
