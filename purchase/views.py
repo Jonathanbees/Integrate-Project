@@ -39,7 +39,7 @@ def purchased_product(request,idproduct):
             return True
     return False
 def order_units(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and not request.user.is_superuser:
         buyer=Buyer.objects.get(idbuyer=request.user.id)
         orders=Order.objects.all().filter(buyer_idbuyer=buyer.idbuyer)
         release_stock()

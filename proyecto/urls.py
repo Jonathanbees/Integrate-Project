@@ -38,6 +38,8 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path('wishlist/', include(('Wishlist.urls', 'wishlist'), namespace='wishlist')),
     path('purchase/', include(('purchase.urls'))),
+    path('graphics/', views.graphics, name='graphics'),
+
 ]
 urlpatterns += staticfiles_urlpatterns()
 

@@ -97,7 +97,7 @@ def see_cart(request):
 
 def units_cart(request):
     #se pregunta si hay un usuario logeado
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and not request.user.is_superuser:
         user_profile = get_object_or_404(Buyer,idbuyer=request.user.id)
         cartproduct= Cart.objects.all().filter(buyer_idbuyer=user_profile.idbuyer)
         if cartproduct:

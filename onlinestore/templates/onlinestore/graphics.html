@@ -1,0 +1,93 @@
+{% extends 'template.html' %}
+{% block content %}
+<div class="graphs" style="display: flex; width: 500px;">
+    <canvas id="myChart"></canvas>
+    <canvas id="piechart"></canvas>
+    <canvas id="piecategory"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+
+
+    const ctx = document.getElementById('myChart');
+    const piechart = document.getElementById('piechart');
+    const piecategory = document.getElementById('piecategory');
+
+    const data1 = {
+        labels: {{ labelsproducts| safe}},
+    datasets: [{
+        label: 'Cantidades de cada producto',
+        data: {{ dataproducts| safe}},
+            }
+    ]
+        };
+    const data2 = {
+        labels: {{ exp_prodname| safe}},
+    datasets: [{
+        label: 'Días restantes para vencer',
+        data: {{ exp_proddate| safe}},
+            }
+    ]
+        };
+    const data3 = {
+        labels: {{ categoryproduct| safe}},
+        datasets: [{
+        label: 'Productos por categoría',
+        data: {{ soldproducts| safe}},
+            }
+    ]
+        };
+
+    const stackedBar = new Chart(ctx, {
+        type: 'bar',
+        data: data1,
+        options: {
+            scales: {
+                x: {
+                    stacked: false
+                },
+                y: {
+                    stacked: false
+                }
+            }
+        }
+    });
+    const piechart2 = new Chart(piechart, {
+        type: 'polarArea',
+        data: data2,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Días restantes productos proximos a vencer'
+                }
+            }
+        }
+    });
+    const piechartcategory = new Chart(piecategory, {
+        type: 'polarArea',
+        data: data3,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Categorías'
+                }
+            }
+        }
+    });
+
+
+</script>
+{% endblock content %}
