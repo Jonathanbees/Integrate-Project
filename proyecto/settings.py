@@ -112,7 +112,7 @@ DATABASES = {
         'NAME': 'tendeus',
         'USER': 'root',
         'PASSWORD': '1234',
-        'HOST':'localhost',
+        'HOST':'34.66.68.47',
         'PORT':'3306',
     }
 }
