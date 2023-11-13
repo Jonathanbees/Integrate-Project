@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_=zub@6ka)+6hv3-&8$a-nn)hygx7+o_)0-a(o$3!uk*v()@!e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['34.66.68.47']
+ALLOWED_HOSTS = ['10.128.0.2']
 
 
 # Application definition
@@ -112,7 +112,7 @@ DATABASES = {
         'NAME': 'tendeus',
         'USER': 'root',
         'PASSWORD': '1234',
-        'HOST':'34.66.68.47',
+        'HOST':'34.75.84.186',
         'PORT':'3306',
     }
 }
