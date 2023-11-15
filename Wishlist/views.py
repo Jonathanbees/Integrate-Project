@@ -21,7 +21,7 @@ def add_to_wishlist(request, product_id):
         return redirect(request.META.get('HTTP_REFERER'))
     
 @login_required
-def ver_wishlist(request):
+def see_wishlist(request):
     user_profile = get_object_or_404(Buyer,idbuyer=request.user.id)
     wishlist= Wishlist.objects.all().filter(buyer_idbuyer=user_profile)
     products=[]

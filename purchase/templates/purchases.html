@@ -1,0 +1,82 @@
+{% extends "onlinestore/template.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+                <!--Producto 1-->
+                <div class="col">
+                    {% include 'messages.html' %}
+                    <h2 class="h2 text-success" style="font-weight: 700;">Historial de ordenes pendientes y compras finalizadas</h2>
+                    <h5 class="text-dark">Las ordenes de compra con pago pendiente, tienen 5 minutos a partir del momento en que se realizó para ser pagadas, pasados los 5 minutos serán canceladas automaticamente</h5>
+                    <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Fecha y hora de orden</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>
+                                {{ order.order_date|date:"j" }} de {{ order.order_date|date:"F" }} del {{ order.order_date|date:"Y" }} {{ order.order_date|date:"H:i:s" }}
+                            </td>
+                            <td>
+                                {{order.total}}
+                            </td>
+                            {% if order.paid %}
+                            <td><h6 class="text-success">Pago {{order.status}} el {{ order.transaction_date|date:"j" }} de {{ order.transaction_date|date:"F" }} del {{ order.transaction_date|date:"Y" }} {{ order.transaction_date|date:"H:i:s" }}</h6></td>
+                            <td><a href="{% url 'purchase:see_order' order.idorder %}">Ver Compra</a></td>
+                            {% else %}
+                            <td>
+                                <div id="demora_{{order.idorder}}" style="display: none;">{{ order.demora }}</div>
+                                    <h6 class="text-warning" id="countdown_{{order.idorder}}"></h6>
+                                <script>
+                                    var countdownElement = document.getElementById("countdown_{{order.idorder}}");
+                                    var demora = JSON.parse(document.getElementById("demora_{{order.idorder}}").textContent);
+                                    var countdownDate = new Date();
+                                    countdownDate.setSeconds(countdownDate.getSeconds() + demora); 
+                                    
+                                    function updateCountdown() {
+                                        var now = new Date();
+                                        var timeLeft = countdownDate - now;
+                                        
+                                        if (timeLeft <= 0) {
+                                            countdownElement.innerHTML = "¡Tiempo agotado!";
+                                            fetch("{% url 'purchase:cancel_order' order.idorder %}")
+                                            .then(response => {
+                                                if (response.status === 200) {
+                                                    window.location.href = "{% url 'purchase:see_orders' %}";
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error("Error en la solicitud: " + error);
+                                            });
+                                        } else {
+                                            var hours = Math.floor((timeLeft % (1000 * 60 * 60*60)) / (1000 * 60*60));
+                                            var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                                            var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                                            countdownElement.innerHTML ="Pago {{order.status}}, pagar en menos de "+hours+"h "+ minutes + "m " + seconds + "s";
+                                        }
+                                    }
+                                    
+                                    setInterval(updateCountdown, 1000); 
+                                    updateCountdown();
+                                </script>
+                            </td>
+                            <td><a href="{% url 'purchase:see_order' order.idorder %}">Ver Orden</a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>              
+                </div>
+    </div>
+</div>
+
+{% endblock %}

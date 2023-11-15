@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from onlinestore.models import Buyer, Product, Cart, Category
 import onlinestore.views as onlinestore_views
-
+import purchase.views as purchase_views
 def get_cart_ready(cartproduct,request):
     products = []
     subtotal = 0
@@ -61,7 +61,7 @@ def add_to_cart(request, product_id):
         discount=ready_cart[3]
         total_units=ready_cart[4]
         allcategories=Category.objects.order_by('name')
-        return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units, 'allcategories': allcategories})
+        return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units, 'allcategories': allcategories,'order_units':purchase_views.order_units(request)})
 @login_required
 def add_to_cart_stay(request, product_id):
     user_profile = get_object_or_404(Buyer, idbuyer=request.user.id)
@@ -83,7 +83,7 @@ def add_to_cart_stay(request, product_id):
     return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required
-def cart(request):
+def see_cart(request):
     user_profile = get_object_or_404(Buyer,idbuyer=request.user.id)
     cartproduct= Cart.objects.all().filter(buyer_idbuyer=user_profile.idbuyer)
     ready_cart=get_cart_ready(cartproduct,request)
@@ -93,11 +93,11 @@ def cart(request):
     discount=ready_cart[3]
     total_units=ready_cart[4]
     allcategories=Category.objects.order_by('name')
-    return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units, 'allcategories': allcategories})
+    return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units, 'allcategories': allcategories,'order_units':purchase_views.order_units(request)})
 
 def units_cart(request):
     #se pregunta si hay un usuario logeado
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and not request.user.is_superuser:
         user_profile = get_object_or_404(Buyer,idbuyer=request.user.id)
         cartproduct= Cart.objects.all().filter(buyer_idbuyer=user_profile.idbuyer)
         if cartproduct:
@@ -125,7 +125,7 @@ def reduce_one(request,product_id):
     total=ready_cart[2]
     discount=ready_cart[3]
     total_units=ready_cart[4]
-    return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units})
+    return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units,'order_units':purchase_views.order_units(request)})
 
 @login_required
 def delete(request, product_id):
@@ -142,7 +142,7 @@ def delete(request, product_id):
     total=ready_cart[2]
     discount=ready_cart[3]
     total_units=ready_cart[4]
-    return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units})
+    return render(request,'detail.html', {'cart': products,'total':total,'discount':discount, 'subtotal': subtotal,'total_units':total_units,'order_units':purchase_views.order_units(request)})
 
 @login_required
 def delete_stay(request, product_id):
@@ -153,3 +153,5 @@ def delete_stay(request, product_id):
         r=register_to_delete.first()
         r.delete()
     return redirect(request.META.get('HTTP_REFERER'))
+
+

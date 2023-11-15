@@ -7,7 +7,7 @@ from django.db import IntegrityError
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from onlinestore.models import Buyer, Category
-
+import purchase.views as purchase_views
 def signupaccount(request):
     if request.method == 'GET':
         return render(request, 'signupaccount.html', 
@@ -38,7 +38,7 @@ def account(request):
     user=request.user
     buyer=Buyer.objects.get(idbuyer=user.id)
     allcategories=Category.objects.order_by('name')
-    return render(request, 'account.html',{'buyer':buyer,'allcategories':allcategories})
+    return render(request, 'account.html',{'buyer':buyer,'allcategories':allcategories,'order_units':purchase_views.order_units(request)})
 
 def loginaccount(request):
     if request.method == 'GET':
@@ -56,23 +56,3 @@ def loginaccount(request):
         else:
             allcategories=Category.objects.order_by('name')
             return render(request, 'loginaccount.html', {'form': AuthenticationForm, 'error': 'Invalid username or password','allcategories':allcategories})
-
-
-"""
-def loginaccount(request):    
-    if request.method == 'GET':
-        return render(request, 'loginaccount.html', 
-                      {'form':AuthenticationForm})            
-    else:
-        user = authenticate(request, username=request.POST['username'],
-                            password=request.POST['password'])            
-    username = request.POST['username']
-    password = request.POST['password']
-    buyer = User.objects.filter(user__username=username).first()  # Obtiene el comprador asociado al usuario
-    if buyer is not None:
-        user = buyer  # Obtiene el usuario a partir del comprador
-        authenticated_user = authenticate(request, username=username, password=password)
-        if authenticated_user is not None:
-            login(request, user)
-    return redirect('index')
-"""

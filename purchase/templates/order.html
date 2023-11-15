@@ -1,0 +1,190 @@
+{% extends "onlinestore/template.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+                <!--Producto 1-->
+                {% if order.paid %}
+                <div class="col">
+                    <h2 class="h2 text-success text-center" style="font-weight: 700;">Mil gracias por tu compra 🤩</h2>
+                    <h3 class="h3 text-success" style="font-weight: 700;">Algo de información por aquí...</h3>
+                    <row class="d-flex justify-content-between align-items-center">
+                        <div class="d-grid gap-2"><h5 class="h5 text-dark" >Fecha de orden de la compra</h5>
+                            <h5 class="h5 text-dark" >{{ order.order_date|date:"j" }} de {{ order.order_date|date:"F" }} del {{ order.order_date|date:"Y" }} {{ order.order_date|date:"H:i:s" }}</h5></div>
+                        <div class="d-grid gap-2">
+                            <h5 class="h5 text-dark">Metodo de pago usado</h5>
+                            <h5 class="text-dark">order.method</h5>
+                        </div>
+                        <div class="d-grid gap-2">
+                        <h5 class="h5 text-success">Fecha de confirmación del pago</h5>
+                        <h5 class="text-success">{{ order.transaction_date|date:"j" }} de {{ order.transaction_date|date:"F" }} del {{ order.transaction_date|date:"Y" }} {{ order.transaction_date|date:"H:i:s" }}</h5>
+                        </div>
+                    </row>
+                    <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio Unitario</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                            <th>Descuento </th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for register in registers %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'product_detail' register.product.idproduct %}">
+                                    <img src="{{ register.product.image.url }}" alt="{{ register.product.name }}" width="50" height="50">
+                                </a>
+                                {{ register.product.name }}
+                            </td>
+                            <td>{{ register.product.sale_price}} </td>
+                            <td>
+                                <div class="quantity-container align-items-center">
+                                    <span style="padding-left: 5%; padding-right: 5%;">
+                                        {{ register.quantity }}
+                                    </span>                
+                                </div>
+                            </td>
+                            <td>{{ register.subtotal }}</td>
+                            <td>{{ register.total_discount }}</td>
+                            <td>{{ register.total }}</td>
+                            <td>
+                                <a type="button" class="btn btn-success" href="{% url 'product_detail' register.product.idproduct%}">Reseñar producto</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mr-2">Subtotal: $ {{ order.subtotal }}</h5>
+                        <h5 class="mr-2">Ahorraste: $ {{ order.discount }}</h5>
+                        <h5 class="mr-2">Total: $ {{ order.total }}</h5>
+                        <a type="button" class="btn btn-primary" href="{% url 'purchase:see_orders' %}">Ver ordenes</a>
+                    </div>
+                </div>
+                 
+            </div>
+                {% else %}
+                <div class="col">
+                    <h2 class="h2 text-success" style="font-weight: 700;">Orden de compra</h2>
+                    <row class="d-flex justify-content-between align-items-center">
+                        <div class="d-grid gap-2"><h5 class="h5 text-success" >Fecha de orden de compra</h5>
+                            <h5 class="h5 text-success" >{{ order.order_date|date:"j" }} de {{ order.order_date|date:"F" }} del {{ order.order_date|date:"Y" }} {{ order.order_date|date:"H:i:s" }}</h5></div>
+                        <div id="demora" style="display: none;">{{ demora }}</div>
+                        <div class="d-grid"><h5 class="h5 text-warning" >Pagar en menos de </h5>
+                            <h5 id="countdown" class="h5 text-warning" ></h5></div>
+                        <script>
+                            var countdownElement = document.getElementById("countdown");
+                            var demora = JSON.parse(document.getElementById("demora").textContent);
+                            var countdownDate = new Date(); 
+                            
+                            countdownDate.setSeconds(countdownDate.getSeconds() + demora);
+                            
+                            function updateCountdown() {
+                                var now = new Date();
+                                var timeLeft = countdownDate - now;
+                                
+                                if (timeLeft <= 0) {
+                                    countdownElement.innerHTML = "¡Tiempo agotado!";
+                                    fetch("{% url 'purchase:cancel_order' order.idorder %}")
+                                    .then(response => {
+                                        if (response.status === 200) {
+                                            window.location.href = "{% url 'purchase:see_orders' %}";
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error("Error en la solicitud: " + error);
+                                    });
+                                } else {
+                                    var hours = Math.floor((timeLeft % (1000 * 60 * 60*60)) / (1000 * 60*60));
+                                    var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                                    var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                                    countdownElement.innerHTML =+hours+"h "+ minutes + "m " + seconds + "s";
+                                }
+                            }
+                            
+                            setInterval(updateCountdown, 1000);
+                            updateCountdown();
+                        </script>
+                        <div class="d-grid gap-2">
+                        <h5 class="h5">Fecha limite de pago</h5>
+                        <h5>{{ order.deadline|date:"j" }} de {{ order.deadline|date:"F" }} del {{ order.deadline|date:"Y" }} {{ order.deadline|date:"H:i:s" }}</h5>
+                        </div>
+                        <div class="d-grid gap-2"><h5 class="h5">Hora actual</h5>
+                            <h5 id="clock" class="h5"></h5></div>
+                        <script>
+                            function updateClock() {
+                            const currentTime = new Date();
+                            const hours = currentTime.getHours();
+                            const minutes = currentTime.getMinutes();
+                            const seconds = currentTime.getSeconds();
+                            const timeString = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                            
+                            // Muestra la hora actual en un elemento HTML con el id "clock"
+                            document.getElementById('clock').textContent = timeString;
+                            }
+
+                        // Actualiza la hora cada segundo
+                        setInterval(updateClock, 1000);
+
+                        // Inicializa la hora actual
+                        updateClock();
+                        </script>
+                    </row>
+                    <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                            <th>Descuento </th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for register in registers %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'product_detail' register.product.idproduct %}">
+                                    <img src="{{ register.product.image.url }}" alt="{{ register.product.name }}" width="50" height="50">
+                                </a>
+                                {{ register.product.name }}
+                            </td>
+                            <td>
+                                <div class="quantity-container align-items-center">
+                                    <span style="padding-left: 5%; padding-right: 5%;">
+                                        {{ register.quantity }}
+                                    </span>                
+                                </div>
+                            </td>
+                            <td>{{ register.subtotal }}</td>
+                            <td>{{ register.total_discount }}</td>
+                            <td>{{ register.total }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mr-2">Subtotal: $ {{ order.subtotal }}</h5>
+                        <h5 class="mr-2">Ahorras: $ {{ order.discount }}</h5>
+                        <h5 class="mr-2">Total: $ {{ order.total }}</h5>
+                        <a type="button" class="btn btn-primary" href="{% url 'purchase:see_orders' %}">Ver ordenes</a>
+                        <a type="button" class="btn btn-danger" href="{% url 'purchase:cancel_order' order.idorder %}">Cancelar orden</a>
+                        <a type="button" class="btn btn-success" href="{% url 'purchase:pay_order' order.idorder%}">Pagar</a>
+                    </div>
+                </div>
+                 
+            </div>
+            {% endif %}
+    </div>
+</div>
+
+{% endblock %}

@@ -15,7 +15,15 @@
                 <div class="card-body">
                     <div class="row justify-content-between" style="padding:20px">
                         <div class="col">
-                            <a class="btn btn-success text-white float-right" href="{% url 'product_detail' product.idproduct %}"><i class="far fa-heart"></i></a>
+                            {% if user.is_authenticated %}
+                                {% if product.in_wishlist %}
+                                <a class="btn btn-success text-white mt-2" href="{% url 'Wishlist:delete_stay' product.idproduct %}"><i       class="fas fa-heart"></i></a>
+                                {% else %}
+                                <a class="btn btn-success text-white mt-2" href="{% url 'Wishlist:add_to_wishlist' product.idproduct %}"><i       class="far fa-heart"></i></a>
+                                {% endif %}
+                            {% else %}
+                            <a class="btn btn-success text-white mt-2" href="{% url 'loginaccount'%}"><i class="far fa-heart"></i></a>
+                            {% endif %}
                         </div>
                         <div class="col">
                             <p class="card-text" style="font-size: 1.0rem;">{{ product.quantity_sold }} vendidos</p>
@@ -38,19 +46,26 @@
                     {% endif %}
                     <h6 class="card-text" style="font-size: 1.2rem; font-weight: 400; padding-left: 20px; padding-top:70px">Unidades disponibles: {{ product.available_quantity }}
                     <div class="d-grid gap-2" style="padding-top: 20px;">
-                        <button type="button" class="btn btn-success btn-lg btn-block" style="height: 50px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Comprar ahora
-                        </button>
                         {% if user.is_authenticated %}
                         {% if product.in_cart %}
+                        <a href="{% url 'cart:cart' %}" class="btn btn-success btn-lg btn-block" style="height: 50px;">
+                            Comprar ahora
+                        </a>
                         <a href="{% url 'cart:delete_stay' product.idproduct %}" class="btn btn-lg btn-block"style="background-color:white; border-color: #5da12d; color:#5da12d; height: 50px; border-radius: 8px;">Quitar del carrito
                         </a>
                         {% else %}
+                        <a href="{% url 'cart:add_to_cart' product.idproduct %}" class="btn btn-success btn-lg btn-block" style="height: 50px;">
+                            Comprar ahora
+                        </a>
                         <a href="{% url 'cart:add_to_cart_stay' product.idproduct %}" class="btn btn-lg btn-block"style="background-color:white; border-color: #5da12d; color:#5da12d; height: 50px; border-radius: 8px;">Añadir al carrito
                         </a>
                         {% endif %}
                         {% else %}
-                        <li><a class="btn btn-success text-white mt-2" href="{% url 'loginaccount'%}"><i        class="fas fa-cart-plus"></i></a></li>
+                        <a href="{% url 'loginaccount' %}" class="btn btn-success btn-lg btn-block" style="height: 50px;">
+                            Comprar ahora
+                        </a>
+                        <a href="{% url 'loginaccount' %}" class="btn btn-lg btn-block"style="background-color:white; border-color: #5da12d; color:#5da12d; height: 50px; border-radius: 8px;">Añadir al carrito
+                        </a>
                         {% endif %}
                 
                     </div>
@@ -72,7 +87,16 @@
                   {% endif %}
                   {% endif %}
                 </div>
+                
               </div>
+              <div class="card" style="width: 63%;">
+                <div class="d-grid gap-2" style="padding-left: 35%; padding-right: 35%;">
+                {% if product.purchased %}
+                <a type="button" class="btn btn-success text-center" href="">Reseñar producto</a>
+                {% endif %}
+                </div>
+              </div>
+              
         </div>
     </div>
     {% endblock %}
