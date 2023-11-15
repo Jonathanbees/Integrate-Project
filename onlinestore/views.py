@@ -131,7 +131,14 @@ def about(request):
                                                                                                 #(nuevo subtotal) quantity* discounted
 
 
-        return render(request, 'onlinestore/graphics.html',{
+        return render(request, 'onlinestore/graphics.html',{'allcategories': allcategories, 'products': products, 
+                                                            'labelsproducts': json.dumps(labelsproducts),
+                                                            'dataproducts': dataproducts,
+                                                            'exp_prodname':exp_prodname,
+                                                            'exp_prodquantity': exp_prodquantity,
+                                                            'exp_proddate': exp_proddate,
+                                                            'categoryproduct': categoryproduct,
+                                                            'soldproducts':soldproducts,
                                                             'totalsales': totalsales,
                                                             'totalsalesdiscount':totalsalesdiscount,
                                                             })

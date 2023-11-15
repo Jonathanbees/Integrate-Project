@@ -1,7 +1,7 @@
 {% extends "onlinestore/template.html" %}
 {% block content %}
 <div id="graphs">
-    <!--
+    
     <div id="chart-container">
         <h2 style="text-align: center;">Cantidades de cada producto</h2>
         <canvas id="myChart"></canvas>
@@ -14,7 +14,7 @@
         <h2 style="text-align: center;">Cantidad productos vendidos por categoría</h2>
         <canvas id="piecategory"></canvas>
     </div>
-    -->
+
     <div id="text-container">
        <h2>Ventas totales: <p class="text-success">{{totalsales}}</p></h2>
     </div>
@@ -23,7 +23,7 @@
      </div>
 </div>
 
-<!--
+
 <script>
 
 
@@ -83,7 +83,6 @@
                 title: {
                     display: true,
                     text: 'Días restantes productos proximos a vencer',
-                    fullSize
                 }
             }
         }
@@ -107,5 +106,5 @@
 
 
 </script>
--->
+
 {% endblock content %}
