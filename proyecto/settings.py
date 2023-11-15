@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-_=zub@6ka)+6hv3-&8$a-nn)hygx7+o_)0-a(o$3!uk*v()@!e
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-#'35.208.122.139'
-ALLOWED_HOSTS = []
+#
+ALLOWED_HOSTS = ['35.208.122.139']
 
 
 # Application definition
@@ -105,14 +105,14 @@ WSGI_APPLICATION = 'proyecto.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-#34.75.84.186
+#
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tendeus',
         'USER': 'root',
         'PASSWORD': '1234',
-        'HOST':'localhost',
+        'HOST':'34.75.84.186',
         'PORT':'3306',
     }
 }
