@@ -65,14 +65,14 @@ def about(request):
     allcategories=Category.objects.order_by('name')
     if request.user.is_superuser:
         products=Product.objects.order_by('expiration_date') #aquí solo se va a tener en cuenta la ordenación respecto a los productos próximos a vencer
+        productsquantity = products.order_by('available_quantity')[:15]
         dataproducts = []
         labelsproducts = []
         #For para mostrar la cantidad de los productos en el gráfico
-        for product in products:
+        for product in productsquantity:
             labelsproducts.append(product.name)
             dataproducts.append(product.available_quantity)
         #For para mostrar los productos proximos a vencer
-    
         expiring_products(products,request)
         exp_prodname=[]
         exp_prodquantity=[]
