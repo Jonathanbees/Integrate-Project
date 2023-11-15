@@ -64,7 +64,7 @@ def contact(request):
 def about(request):
     allcategories=Category.objects.order_by('name')
     if request.user.is_superuser:
-        products=Product.objects.order_by('expiration_date') #aquí solo se va a tener en cuenta la ordenación respecto a los productos próximos a vencer
+        products=Product.objects.order_by('expiration_date')
         productsquantity = products.order_by('available_quantity')[:15]
         dataproducts = []
         labelsproducts = []
@@ -85,8 +85,6 @@ def about(request):
         
         #For para mostrar los productos mas vendidos
         categories = Category.objects.all()
-        quantityprod=products.order_by('quantity_sold')
-        productsall = Product.objects.all()
         soldproducts = []
         categoryproduct = []
 
@@ -97,39 +95,21 @@ def about(request):
             for p in categoryproducts:
                 categorysold += p.quantity_sold
             soldproducts.append(categorysold)
-        print(soldproducts)
-        print(categoryproduct)
-
-
-
-        #expiration=products.order_by('expiration_date')[:3]
-        #expiring_products(expiration,request)
         allcategories=Category.objects.order_by('name')
-        #print(dataproducts)
-        #print(labelsproducts)
-        #print(exp_proddate)
-
         order = Order.objects.filter(status = 'confirmado')
-        ordersp = []
         totalsales = 0
         totalsalesdiscount = 0
+        investment=0
         for o in order:
             productorder = ProductOrder.objects.filter(order_idorder = o.idorder) #-> Se encargará de coger la orden respecto a la orden confirmada
             for p in productorder:
                 totalsales += p.quantity*p.discounted_unit_price
+                product=Product.objects.filter(idproduct=p.product_idproduct)[0]
+                investment+=p.quantity*product.purchase_price
                 if p.discounted_unit_price != p.nondiscounted_unit_price:
                     totalsalesdiscount += p.quantity*p.discounted_unit_price
-        print(totalsales)
-        print(totalsalesdiscount)
+        profit=round(totalsales-investment)
         
-        #print(order)
-        #1. Filtrar por orden de acuerdo al status = confirmado
-        #2. asociar orden con product-order respecto al id (categoryproducts = Product.objects.filter(category_idcategory = c.idcategory))
-        #3. si el descuento es 0, no se coge el dato, per
-        #ventas totales (quantity x discounted-unitprice)
-        #cuanto se vendió de productos proximos a perderse (quantity x discounted-unitprice) -> que discounted_unit_pri != nondiscounted
-                                                                                                #(nuevo subtotal) quantity* discounted
-
 
         return render(request, 'onlinestore/graphics.html',{'allcategories': allcategories, 'products': products, 
                                                             'labelsproducts': json.dumps(labelsproducts),
@@ -141,6 +121,7 @@ def about(request):
                                                             'soldproducts':soldproducts,
                                                             'totalsales': totalsales,
                                                             'totalsalesdiscount':totalsalesdiscount,
+                                                            'profit':profit,
                                                             })
 
     else:

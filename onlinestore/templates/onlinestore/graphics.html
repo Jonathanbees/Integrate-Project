@@ -4,7 +4,7 @@
 
 {% block content %}
 <Header> <style>
-    @media (max-width: 1200px) {
+    @media (max-width: 1800px) {
         #graphs {
             display: grid;
             grid-template-rows: repeat(2, 1fr);
@@ -38,7 +38,7 @@
     
         }
     }
-    @media (max-width: 428px){
+    @media (max-width: 435px){
         #graphs {
             display: grid;
             grid-template-rows: repeat(6, 1fr);
@@ -50,6 +50,24 @@
             margin: auto;
         }
         #chart-container {
+            width: auto;
+            box-sizing: border-box;
+            margin: auto;
+    
+        }
+        #text-container {
+            width: auto;
+            box-sizing: border-box;
+            margin: auto;
+    
+        }
+        #text-containerdiscount {
+            width: auto;
+            box-sizing: border-box;
+            margin: auto;
+    
+        }
+        #text-containerprofit {
             width: auto;
             box-sizing: border-box;
             margin: auto;
@@ -67,14 +85,22 @@ grid-auto-rows: 400px 100px;">
     
     <div id="chart-container" style="width: auto;
     box-sizing: border-box;">
-        <h2 style="text-align: center;">Cantidades de cada producto</h2>
+        <h2 style="text-align: center;">Los 15 productos con menos unidades</h2>
         <canvas id="myChart"></canvas>
     </div>
-    <div id="chart-container" style="width: auto;
-    box-sizing: border-box;">
-        <h2 style="text-align: center;">Días restantes productos proximos a vencer</h2>
-        <canvas id="piechart"></canvas>
-    </div>
+    <div id="text-containerdiscount">
+        <h2>Ventas totales de productos bajo descuento<p class="text-success" style="font-weight: bold;
+            color: #15ff00;
+            font-size: 30px;
+            text-decoration: double;
+            text-align: center;
+            background-color: #fafaf0;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            width: auto;
+            box-sizing: border-box;">{{totalsalesdiscount}}</p></h2>
+     </div>
+    
     <div id="chart-container" style="width: auto;
     box-sizing: border-box;">
         <h2 style="text-align: center;">Cantidad productos vendidos por categoría</h2>
@@ -82,7 +108,7 @@ grid-auto-rows: 400px 100px;">
     </div>
 
     <div id="text-container">
-        <h2 style="text-align: center; width: auto; box-sizing: border-box;">Ventas totales: <p class="text-success" style="font-weight: bold;
+        <h2 style="text-align: center; width: auto; box-sizing: border-box;">Ventas totales de los productos de la tienda: <p class="text-success" style="font-weight: bold;
         color: #ff0000;
         font-size: 30px;
         text-decoration: double;
@@ -93,8 +119,14 @@ grid-auto-rows: 400px 100px;">
         width: auto;
         box-sizing: border-box;">{{totalsales}}</p></h2>
     </div>
-    <div id="text-containerdiscount">
-        <h2>Ventas totales con descuento: <p class="text-success" style="font-weight: bold;
+    
+     <div id="chart-container" style="width: auto;
+    box-sizing: border-box;">
+        <h2 style="text-align: center;">Productos que expirarán en menos de 40 días</h2>
+        <canvas id="piechart"></canvas>
+    </div>
+     <div id="text-containerprofit">
+        <h2>Ganancias de los productos vendidos<p class="text-success" style="font-weight: bold;
             color: #15ff00;
             font-size: 30px;
             text-decoration: double;
@@ -103,7 +135,7 @@ grid-auto-rows: 400px 100px;">
             padding: 10px;
             border: 1px solid #cccccc;
             width: auto;
-            box-sizing: border-box;">{{totalsalesdiscount}}</p></h2>
+            box-sizing: border-box;">{{profit}}</p></h2>
      </div>
 </div>
 
@@ -165,8 +197,8 @@ grid-auto-rows: 400px 100px;">
                     position: 'top',
                 },
                 title: {
-                    display: true,
-                    text: 'Días restantes productos proximos a vencer',
+                    display: false,
+                    //text: 'Días restantes productos proximos a vencer',
                 }
             }
         }
@@ -181,8 +213,8 @@ grid-auto-rows: 400px 100px;">
                     position: 'top',
                 },
                 title: {
-                    display: true,
-                    text: 'Categorías'
+                    display: false,
+                    //text: 'Categorías'
                 }
             }
         }
